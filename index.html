@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TEAS 7 &amp; HESI A2 Practice</title>
+<style>
+:root{
+  --bg:#fbfaf8; --panel:#fff; --panel2:#f5f3ef; --ink:#1c1a17; --ink2:#57534e;
+  --line:#e6e2dc; --accent:#0f6a5a; --accent-soft:#e7f2ef;
+  --warn:#9a3a12; --warn-soft:#fdeee6; --good:#1a6b3c; --good-soft:#e8f4ec;
+  --flag:#7a5c00; --flag-soft:#fdf5dd; --shadow:0 1px 3px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#16150f; --panel:#1e1d17; --panel2:#25241d; --ink:#f0ede6; --ink2:#a8a29a;
+  --line:#33312a; --accent:#5fc4ac; --accent-soft:#16302b;
+  --warn:#f0a074; --warn-soft:#33201a; --good:#7fcf9e; --good-soft:#162b1f;
+  --flag:#e6c766; --flag-soft:#2e2717; --shadow:0 1px 3px rgba(0,0,0,.3);
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.6 ui-sans-serif,-apple-system,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow-wrap:break-word}
+.wrap{max-width:980px;margin:0 auto;padding:26px 18px 90px}
+h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:-.02em}
+h2{font-size:1.1rem;margin:34px 0 12px;letter-spacing:-.01em;
+   border-left:3px solid var(--accent);padding-left:11px}
+h3{font-size:.97rem;margin:0 0 8px}
+p{margin:0 0 11px}
+.sub{color:var(--ink2);font-size:.86rem;margin:0}
+.muted{color:var(--ink2);font-size:.87rem}
+a{color:var(--accent)}
+header.top{border-bottom:2px solid var(--ink);padding-bottom:15px;margin-bottom:22px;
+  display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap}
+
+button{font:inherit;font-size:.84rem;font-weight:560;cursor:pointer;
+  background:var(--panel);color:var(--ink);border:1px solid var(--line);
+  border-radius:8px;padding:8px 14px;transition:.12s}
+button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+button:disabled{opacity:.4;cursor:not-allowed}
+button.primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+button.primary:hover:not(:disabled){opacity:.87;color:var(--bg)}
+button.ghost{background:transparent}
+button.danger:hover:not(:disabled){border-color:var(--warn);color:var(--warn)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 18px}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:17px 19px;margin:12px 0;box-shadow:var(--shadow)}
+.grid2{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.grid3{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(148px,1fr))}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:13px 15px}
+.stat .k{font-size:1.4rem;font-weight:660;letter-spacing:-.02em;line-height:1.15;
+  font-variant-numeric:tabular-nums}
+.stat .l{font-size:.72rem;color:var(--ink2);text-transform:uppercase;letter-spacing:.07em;margin-top:4px}
+
+.mode{display:block;width:100%;text-align:left;padding:13px 15px;margin:8px 0;
+  background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.mode b{display:block;font-size:.95rem;font-weight:620;margin-bottom:2px}
+.mode span{display:block;font-size:.82rem;color:var(--ink2);font-weight:400;line-height:1.45}
+.mode:hover{border-color:var(--accent)}
+.mode:hover b{color:var(--accent)}
+
+.track{height:8px;background:var(--panel2);border-radius:20px;overflow:hidden;margin-top:7px}
+.fill{height:100%;background:var(--accent);border-radius:20px;transition:width .3s}
+.fill.bad{background:var(--warn)} .fill.ok{background:var(--good)}
+
+/* ---- exam chrome ---- */
+.exambar{position:sticky;top:0;z-index:20;background:var(--panel);border-bottom:1px solid var(--line);
+  padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;box-shadow:var(--shadow)}
+.exambar .sect{font-weight:640;font-size:.92rem}
+.exambar .pos{font-size:.82rem;color:var(--ink2);font-variant-numeric:tabular-nums}
+.clock{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:680;font-size:1.05rem;
+  padding:3px 11px;border-radius:8px;background:var(--panel2)}
+.clock.warn{background:var(--warn-soft);color:var(--warn)}
+.clock.crit{background:var(--warn);color:var(--bg)}
+
+.qcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:20px 22px;margin:16px 0;box-shadow:var(--shadow)}
+.passage{background:var(--panel2);border:1px solid var(--line);border-radius:10px;
+  padding:15px 17px;margin-bottom:16px;font-size:.9rem;line-height:1.65;max-height:340px;overflow:auto}
+.passage h4{margin:0 0 8px;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
+.passage.pre{white-space:pre-wrap;font-family:ui-monospace,"Cascadia Code",Consolas,monospace;font-size:.82rem}
+.stem{font-size:1rem;line-height:1.55;margin-bottom:15px}
+.stem u{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;
+  text-decoration-color:var(--accent);font-weight:600}
+.hint{font-size:.8rem;color:var(--ink2);font-style:italic;margin-bottom:12px}
+
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border:1px solid var(--line);
+  border-radius:9px;cursor:pointer;background:var(--bg);transition:.1s;text-align:left;font:inherit;
+  font-size:.92rem;color:var(--ink);width:100%}
+.opt:hover{border-color:var(--accent);background:var(--accent-soft)}
+.opt .ltr{flex:none;width:23px;height:23px;border:1.5px solid var(--ink2);border-radius:6px;
+  display:grid;place-items:center;font-size:.74rem;font-weight:700;color:var(--ink2)}
+.opt.ms .ltr{border-radius:6px}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt.sel .ltr{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.right .ltr{background:var(--good);border-color:var(--good);color:var(--bg)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-soft)}
+.opt.wrong .ltr{background:var(--warn);border-color:var(--warn);color:var(--bg)}
+.opt:disabled{cursor:default}
+
+input[type=text],input[type=number],select{font:inherit;font-size:.92rem;padding:9px 11px;
+  background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;max-width:230px}
+input[type=text]:focus,input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px}
+
+/* ordering */
+.ordwrap{display:grid;gap:13px;grid-template-columns:1fr 1fr}
+@media(max-width:620px){.ordwrap{grid-template-columns:1fr}}
+.ordbox{border:1px dashed var(--line);border-radius:9px;padding:10px;min-height:70px;background:var(--bg)}
+.ordbox h5{margin:0 0 8px;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
+.orditem{display:flex;gap:8px;align-items:center;padding:9px 11px;margin:6px 0;background:var(--panel);
+  border:1px solid var(--line);border-radius:8px;font-size:.87rem}
+.orditem .txt{flex:1}
+.orditem .num{flex:none;width:21px;height:21px;background:var(--accent);color:var(--bg);border-radius:5px;
+  display:grid;place-items:center;font-size:.72rem;font-weight:700}
+.orditem button{padding:2px 7px;font-size:.72rem;border-radius:5px}
+.orditem.pick{cursor:pointer}
+.orditem.pick:hover{border-color:var(--accent);background:var(--accent-soft)}
+
+/* hotspot */
+.hswrap{position:relative;display:inline-block;max-width:100%;border:1px solid var(--line);
+  border-radius:9px;overflow:hidden;background:var(--panel2)}
+.hswrap svg{display:block;width:100%;height:auto;max-width:480px}
+.hs-bg{fill:var(--panel2)}
+.hs-part{fill:var(--accent-soft);stroke:var(--ink2);stroke-width:1.5}
+.hs-label{fill:var(--ink2);font-size:11px;font-family:inherit}
+.hsreg{fill:transparent;stroke:var(--ink2);stroke-width:1;stroke-dasharray:4 3;cursor:pointer;opacity:.55}
+.hsreg:hover{fill:var(--accent);opacity:.3}
+.hsreg.sel{fill:var(--accent);opacity:.42;stroke-dasharray:none;stroke-width:2}
+.hsreg.right{fill:var(--good);opacity:.45;stroke:var(--good);stroke-dasharray:none;stroke-width:2}
+.hsreg.wrong{fill:var(--warn);opacity:.45;stroke:var(--warn);stroke-dasharray:none;stroke-width:2}
+
+/* rationale */
+.rat{margin-top:16px;padding:14px 16px;border-radius:10px;border:1px solid var(--line);
+  border-left-width:4px;background:var(--panel2);font-size:.89rem}
+.rat.right{border-left-color:var(--good);background:var(--good-soft)}
+.rat.wrong{border-left-color:var(--warn);background:var(--warn-soft)}
+.rat .verdict{font-weight:680;margin-bottom:7px}
+.rat ul{margin:9px 0 0;padding-left:19px}
+.rat li{margin-bottom:4px}
+.rat .why{font-size:.86rem;color:var(--ink2)}
+
+.navrow{display:flex;gap:9px;align-items:center;margin-top:18px;flex-wrap:wrap}
+.navrow .sp{flex:1}
+.flagbtn.on{background:var(--flag-soft);border-color:var(--flag);color:var(--flag)}
+
+/* palette */
+.palette{display:flex;flex-wrap:wrap;gap:5px;margin:14px 0}
+.pbtn{width:32px;height:30px;padding:0;font-size:.75rem;font-variant-numeric:tabular-nums;border-radius:6px}
+.pbtn.ans{background:var(--accent-soft);border-color:var(--accent)}
+.pbtn.flg{background:var(--flag-soft);border-color:var(--flag)}
+.pbtn.cur{outline:2px solid var(--ink);outline-offset:1px}
+
+/* calculator */
+.calcpad{position:fixed;right:16px;bottom:16px;z-index:40;background:var(--panel);
+  border:1px solid var(--line);border-radius:12px;padding:12px;box-shadow:0 6px 24px rgba(0,0,0,.22);width:212px}
+.calcpad .disp{background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:9px 11px;
+  text-align:right;font-variant-numeric:tabular-nums;font-size:1.15rem;font-weight:640;margin-bottom:9px;
+  overflow:hidden;white-space:nowrap}
+.calcgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.calcgrid button{padding:9px 0;font-size:.88rem;border-radius:6px}
+
+/* results */
+.rowline{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;
+  padding:11px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.rowline:last-child{border-bottom:none}
+.rowline .nm{font-weight:600}
+.rowline .wn{color:var(--ink2);font-size:.8rem;display:block;font-weight:400}
+.pill{font-size:.73rem;font-weight:660;padding:3px 10px;border-radius:20px;white-space:nowrap;
+  font-variant-numeric:tabular-nums;border:1px solid}
+.p-good{background:var(--good-soft);color:var(--good);border-color:var(--good)}
+.p-warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.p-flag{background:var(--flag-soft);color:var(--flag);border-color:var(--flag)}
+.p-mute{background:var(--panel2);color:var(--ink2);border-color:var(--line)}
+.note{background:var(--flag-soft);border:1px solid var(--flag);border-left-width:4px;
+  border-radius:9px;padding:13px 16px;margin:14px 0;font-size:.87rem}
+.note.w{background:var(--warn-soft);border-color:var(--warn)}
+.note.g{background:var(--good-soft);border-color:var(--good)}
+.note.i{background:var(--accent-soft);border-color:var(--accent)}
+.note b{font-weight:660}
+
+.hide{display:none!important}
+.foot{margin-top:42px;padding-top:14px;border-top:1px solid var(--line);font-size:.77rem;color:var(--ink2)}
+@media(max-width:560px){
+  .wrap{padding:18px 13px 80px}
+  .qcard{padding:16px 15px}
+  .calcpad{width:184px;right:9px;bottom:9px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HOME ============ -->
+<div class="wrap" id="scr-home">
+  <header class="top">
+    <div>
+      <h1>Nursing Entrance Exam Practice</h1>
+      <p class="sub">ATI TEAS 7 &middot; HESI A2 &mdash; blueprint-exact simulations</p>
+    </div>
+    <div class="bar" style="margin:0">
+      <button onclick="exportData()">Export &darr;</button>
+      <button onclick="document.getElementById('imp').click()">Import &uarr;</button>
+      <input type="file" id="imp" accept=".json" class="hide" onchange="importData(event)">
+    </div>
+  </header>
+
+  <div id="readiness"></div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>ATI TEAS 7 <span class="muted" style="font-weight:400">&mdash; for Evergreen Valley</span></h3>
+      <p class="muted" style="font-size:.83rem">170 questions, 209 minutes, four separately-timed sections.
+      Your <b>first passing score locks in permanently</b> at EVC &mdash; 85%+ earns the maximum 25 points.</p>
+      <div id="teas-modes"></div>
+    </div>
+    <div class="card">
+      <h3>HESI A2 <span class="muted" style="font-weight:400">&mdash; for De Anza</span></h3>
+      <p class="muted" style="font-size:.83rem">Six required sections, each needs <b>75% independently</b> &mdash;
+      no averaging. Two lifetime attempts; fail twice and De Anza nursing closes for good.</p>
+      <div id="hesi-modes"></div>
+    </div>
+  </div>
+
+  <h2>Your progress</h2>
+  <div id="dash"></div>
+
+  <div class="foot">
+    <p>Practice items are original, written to the published ATI and Elsevier blueprints. This is not affiliated with ATI or Elsevier, and no real exam questions appear here.
+    Third-party practice generally runs harder than the real TEAS, so treat a practice score as a floor rather than a prediction.</p>
+    <p style="margin-bottom:0">Everything is stored in this browser. Use <b>Export</b> to move progress to another device.</p>
+  </div>
+</div>
+
+<!-- ============ EXAM ============ -->
+<div id="scr-exam" class="hide">
+  <div class="exambar">
+    <span class="sect" id="ex-sect"></span>
+    <span class="pos" id="ex-pos"></span>
+    <button class="ghost" id="ex-quit" onclick="quitExam()" style="font-size:.76rem;padding:4px 9px">End</button>
+    <span class="clock" id="ex-clock"></span>
+  </div>
+  <div class="wrap" style="padding-top:16px">
+    <div id="ex-body"></div>
+  </div>
+</div>
+
+<!-- ============ BREAK ============ -->
+<div class="wrap hide" id="scr-break">
+  <div class="card" style="text-align:center;padding:36px 22px">
+    <h2 style="border:none;padding:0;margin:0 0 8px">Break</h2>
+    <p class="muted">The real TEAS gives you a 10-minute break after Mathematics. Break time is not deducted from your exam time.</p>
+    <div class="clock" id="brk-clock" style="display:inline-block;font-size:2rem;margin:16px 0">10:00</div>
+    <p class="muted" style="font-size:.83rem">Stand up, drink water. Science is next &mdash; the biggest section.</p>
+    <button class="primary" onclick="endBreak()">Resume now</button>
+  </div>
+</div>
+
+<!-- ============ RESULTS ============ -->
+<div class="wrap hide" id="scr-results"><div id="res-body"></div></div>
+
+<!-- ============ REVIEW ============ -->
+<div class="wrap hide" id="scr-review">
+  <header class="top">
+    <div><h1 id="rv-title">Review</h1><p class="sub" id="rv-sub"></p></div>
+    <div class="bar" style="margin:0">
+      <button onclick="rvFilter('all')">All</button>
+      <button onclick="rvFilter('missed')">Missed only</button>
+      <button onclick="rvFilter('flag')">Flagged</button>
+      <button class="primary" onclick="show('home');renderHome()">Done</button>
+    </div>
+  </header>
+  <div id="rv-body"></div>
+</div>
+
+<div id="calcHost"></div>
+
+<script src="banks/teas-reading.js"></script>
+<script src="banks/teas-math.js"></script>
+<script src="banks/teas-science-ap.js"></script>
+<script src="banks/teas-science-cr.js"></script>
+<script src="banks/teas-english.js"></script>
+<script src="banks/hesi-math.js"></script>
+<script src="banks/hesi-reading.js"></script>
+<script src="banks/hesi-vocab.js"></script>
+<script src="banks/hesi-grammar.js"></script>
+<script src="banks/hesi-bio-ap.js"></script>
+<script>
+/* ============================================================
+   EXAM DEFINITIONS — from the official blueprints
+   ============================================================ */
+const BANKS = window.BANKS || {};
+
+const EXAMS = {
+  teas: {
+    name: "ATI TEAS 7",
+    short: "TEAS",
+    backNav: true, flagging: true, breakAfter: "math", breakSecs: 600,
+    sections: [
+      { key:"reading", name:"Reading",     mins:55, banks:["teas-reading"] },
+      { key:"math",    name:"Mathematics", mins:57, banks:["teas-math"], calc:true },
+      { key:"science", name:"Science",     mins:60, banks:["teas-science-ap","teas-science-cr"] },
+      { key:"english", name:"English & Language Usage", mins:37, banks:["teas-english"] }
+    ],
+    bands: [
+      { min:90.7, label:"Exemplary" }, { min:78,   label:"Advanced" },
+      { min:58.7, label:"Proficient" }, { min:41.3, label:"Basic" },
+      { min:0,    label:"Developmental" }
+    ],
+    points: [
+      { min:85, pts:25, note:"maximum points" }, { min:78, pts:20 }, { min:71, pts:15 },
+      { min:64, pts:10 }, { min:62, pts:5 }, { min:0, pts:0, note:"below EVC's 62% minimum — not eligible" }
+    ],
+    target: 85
+  },
+  hesi: {
+    name: "HESI A2",
+    short: "HESI",
+    backNav: false, flagging: false, breakAfter: null,
+    passMark: 75, target: 85,
+    sections: [
+      { key:"math",    name:"Mathematics", mins:50, banks:["hesi-math"], calc:true },
+      { key:"reading", name:"Reading Comprehension", mins:60, banks:["hesi-reading"] },
+      { key:"vocab",   name:"Vocabulary & General Knowledge", mins:50, banks:["hesi-vocab"] },
+      { key:"grammar", name:"Grammar", mins:50, banks:["hesi-grammar"] },
+      { key:"biology", name:"Biology", mins:25, banks:["hesi-bio-ap"], subsIn:["macromolecules","cell structure","cellular respiration/photosynthesis","genetics","DNA/RNA-protein synthesis","scientific method/taxonomy"] },
+      { key:"ap",      name:"Anatomy & Physiology", mins:30, banks:["hesi-bio-ap"], subsIn:["A&P"] }
+    ]
+  }
+};
+
+/* ============================================================
+   STORAGE
+   ============================================================ */
+const KEY = "teas-hesi-prep-v1";
+let DB = { v:1, attempts:[], stats:{} };
+
+function loadDB(){
+  try{ const r = localStorage.getItem(KEY); if(r){ const d = JSON.parse(r);
+    DB = { v:1, attempts:d.attempts||[], stats:d.stats||{} }; } }catch(e){}
+}
+function saveDB(){
+  try{ localStorage.setItem(KEY, JSON.stringify({...DB, saved:new Date().toISOString()})); }catch(e){}
+}
+function exportData(){
+  const blob = new Blob([JSON.stringify({...DB, saved:new Date().toISOString()},null,2)],{type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "nursing-exam-prep-progress.json";
+  a.click(); URL.revokeObjectURL(a.href);
+}
+function importData(e){
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ev=>{
+    try{
+      const d = JSON.parse(ev.target.result);
+      if(!d || typeof d!=="object") throw new Error("bad file");
+      DB = { v:1, attempts:d.attempts||[], stats:d.stats||{} };
+      saveDB(); renderHome();
+      toast("Progress imported — " + DB.attempts.length + " attempt(s) restored.","g");
+    }catch(err){ toast("That file could not be read as saved progress.","w"); }
+  };
+  r.readAsText(f); e.target.value = "";
+}
+function toast(msg,kind){
+  const d = document.createElement("div");
+  d.className = "note " + (kind||"i");
+  d.style.cssText = "position:fixed;left:50%;transform:translateX(-50%);bottom:22px;z-index:99;max-width:92vw;box-shadow:0 6px 24px rgba(0,0,0,.25)";
+  d.textContent = msg;
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(), 4200);
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+/* stems may contain <u> for HESI vocabulary targets — allow only that tag */
+function stemHTML(s){ return esc(s).replace(/&lt;u&gt;/g,"<u>").replace(/&lt;\/u&gt;/g,"</u>"); }
+function mulberry(seed){ return function(){ seed|=0; seed=seed+0x6D2B79F5|0;
+  let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t;
+  return ((t^t>>>14)>>>0)/4294967296; }; }
+function shuffled(arr, rnd){ const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(rnd()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function fmtTime(s){ s=Math.max(0,Math.round(s));
+  const m=Math.floor(s/60), r=s%60; return m+":"+String(r).padStart(2,"0"); }
+function pct(n,d){ return d? Math.round(n/d*1000)/10 : 0; }
+function show(id){
+  ["home","exam","break","results","review"].forEach(s=>{
+    const el = document.getElementById("scr-"+s);
+    if(el) el.classList.toggle("hide", s!==id);
+  });
+  window.scrollTo(0,0);
+}
+function allQuestions(exam){
+  const out = [];
+  EXAMS[exam].sections.forEach(sec=>{
+    sec.banks.forEach(bk=>{
+      const b = BANKS[bk]; if(!b) return;
+      b.questions.forEach(q=>{
+        if(sec.subsIn && !sec.subsIn.includes(q.sub)) return;
+        out.push({ ...q, _bank:bk, _sec:sec.key });
+      });
+    });
+  });
+  return out;
+}
+function bankReady(exam){
+  return EXAMS[exam].sections.every(s=>s.banks.every(b=>BANKS[b]&&BANKS[b].questions&&BANKS[b].questions.length));
+}
+function sectionQuestions(exam, sec){
+  const out = [];
+  sec.banks.forEach(bk=>{
+    const b = BANKS[bk]; if(!b) return;
+    b.questions.forEach(q=>{
+      if(sec.subsIn && !sec.subsIn.includes(q.sub)) return;
+      out.push({ ...q, _bank:bk, _sec:sec.key });
+    });
+  });
+  return out;
+}
+function passageFor(q){
+  const b = BANKS[q._bank];
+  return q.passage && b && b.passages ? b.passages[q.passage] : null;
+}
+
+/* ============================================================
+   TEST BUILDER
+   ============================================================ */
+function prepQ(q, rnd){
+  const p = { ...q };
+  if(q.type==="mc" || q.type==="ms"){
+    const idx = shuffled(q.choices.map((_,i)=>i), rnd);
+    p.dChoices = idx.map(i=>q.choices[i]);
+    p.dWrong   = idx.map(i=>(q.rationale&&q.rationale.wrong)?q.rationale.wrong[i]:null);
+    p.dAnswer  = q.type==="mc" ? idx.indexOf(q.answer)
+                               : q.answer.map(a=>idx.indexOf(a)).sort((a,b)=>a-b);
+  }
+  return p;
+}
+/* mode: full | section | missed | weak */
+function buildRun(exam, mode, opts){
+  opts = opts||{};
+  const rnd = mulberry(Date.now() & 0x7fffffff);
+  const E = EXAMS[exam];
+  let sections = [];
+
+  if(mode==="full"){
+    sections = E.sections.map(sec=>{
+      const qs = shuffled(sectionQuestions(exam,sec), rnd).map(q=>prepQ(q,rnd));
+      return { key:sec.key, name:sec.name, mins:sec.mins, calc:!!sec.calc, questions:qs };
+    });
+  } else {
+    const sec = E.sections.find(s=>s.key===opts.section) || E.sections[0];
+    let pool;
+    if(mode==="section"){ pool = sectionQuestions(exam,sec); }
+    else if(mode==="missed"){
+      pool = allQuestions(exam).filter(q=>{ const st=DB.stats[q.id]; return st && st.seen && st.last==="wrong"; });
+    } else { /* weak */
+      const acc = subAccuracy(exam);
+      const ranked = Object.keys(acc).sort((a,b)=>acc[a].pct-acc[b].pct);
+      const weakSubs = ranked.filter(s=>acc[s].seen>0).slice(0,3);
+      pool = allQuestions(exam).filter(q=>weakSubs.includes(q.sub));
+      if(pool.length < 10) pool = allQuestions(exam);
+    }
+    const lim = opts.limit || pool.length;
+    const qs = shuffled(pool, rnd).slice(0,lim).map(q=>prepQ(q,rnd));
+    sections = [{ key:(mode==="section"?sec.key:mode), name:(mode==="section"?sec.name:(mode==="missed"?"Missed questions":"Weakest areas")),
+                  mins:null, calc:!!(mode==="section"&&sec.calc), questions:qs }];
+  }
+  return { exam, mode, sections, si:0, qi:0, answers:{}, flags:{}, revealed:{},
+           timed: mode==="full", startedAt:new Date().toISOString(), secLeft:null, done:[] };
+}
+
+/* ============================================================
+   SCORING
+   ============================================================ */
+function isCorrect(q, a){
+  if(a===undefined || a===null) return false;
+  if(q.type==="mc") return a===q.dAnswer;
+  if(q.type==="ms"){ if(!Array.isArray(a)||a.length!==q.dAnswer.length) return false;
+    const s=[...a].sort((x,y)=>x-y); return s.every((v,i)=>v===q.dAnswer[i]); }
+  if(q.type==="fill"){ const norm=s=>String(s).trim().toLowerCase().replace(/^\$/,"").replace(/,/g,"").replace(/\s+/g,"");
+    const g=norm(a); if(!g) return false;
+    return q.answer.accept.some(x=>{ if(norm(x)===g) return true;
+      const nx=parseFloat(x), ng=parseFloat(g);
+      return !isNaN(nx)&&!isNaN(ng)&&Math.abs(nx-ng)<1e-9; }); }
+  if(q.type==="order"){ if(!Array.isArray(a)||a.length!==q.answer.length) return false;
+    return a.every((v,i)=>v===q.answer[i]); }
+  if(q.type==="hotspot") return a===q.answer;
+  return false;
+}
+function scoreRun(run){
+  const secs = run.sections.map(sec=>{
+    let right=0, blank=0;
+    const subs = {};
+    sec.questions.forEach(q=>{
+      const a = run.answers[q.id];
+      const ok = isCorrect(q,a);
+      const unanswered = a===undefined || a===null || (Array.isArray(a)&&!a.length) || a==="";
+      if(unanswered) blank++;
+      if(ok) right++;
+      subs[q.sub] = subs[q.sub] || {n:0,r:0};
+      subs[q.sub].n++; if(ok) subs[q.sub].r++;
+    });
+    const n = sec.questions.length;
+    return { key:sec.key, name:sec.name, n, right, blank, pct:pct(right,n), subs };
+  });
+  const n = secs.reduce((a,s)=>a+s.n,0), right = secs.reduce((a,s)=>a+s.right,0);
+  return { secs, n, right, pct:pct(right,n) };
+}
+function teasBand(p){ return EXAMS.teas.bands.find(b=>p>=b.min); }
+function evcPoints(p){ return EXAMS.teas.points.find(b=>p>=b.min); }
+
+function commitRun(run, sc){
+  run.sections.forEach(sec=>sec.questions.forEach(q=>{
+    const a = run.answers[q.id];
+    const answered = !(a===undefined||a===null||(Array.isArray(a)&&!a.length)||a==="");
+    if(!answered && run.mode!=="full") return;
+    const ok = isCorrect(q,a);
+    const st = DB.stats[q.id] || {seen:0,right:0};
+    st.seen++; if(ok) st.right++;
+    st.last = ok ? "right" : "wrong";
+    st.sub = q.sub; st.exam = run.exam; st.at = new Date().toISOString();
+    DB.stats[q.id] = st;
+  }));
+  DB.attempts.push({
+    id: "a"+DB.attempts.length+"-"+Date.now(), exam:run.exam, mode:run.mode,
+    startedAt:run.startedAt, finishedAt:new Date().toISOString(),
+    pct:sc.pct, n:sc.n, right:sc.right,
+    secs: sc.secs.map(s=>({key:s.key,name:s.name,n:s.n,right:s.right,pct:s.pct,blank:s.blank}))
+  });
+  if(DB.attempts.length>60) DB.attempts = DB.attempts.slice(-60);
+  saveDB();
+}
+function subAccuracy(exam){
+  const acc = {};
+  allQuestions(exam).forEach(q=>{ acc[q.sub] = acc[q.sub] || {seen:0,right:0,total:0,pct:0};
+    acc[q.sub].total++; });
+  Object.keys(DB.stats).forEach(id=>{
+    const st = DB.stats[id];
+    if(st.exam!==exam || !acc[st.sub]) return;
+    acc[st.sub].seen += st.seen; acc[st.sub].right += st.right;
+  });
+  Object.keys(acc).forEach(s=>{ acc[s].pct = acc[s].seen? acc[s].right/acc[s].seen*100 : 0; });
+  return acc;
+}
+
+/* ============================================================
+   HOME
+   ============================================================ */
+function renderHome(){
+  ["teas","hesi"].forEach(ex=>{
+    const host = document.getElementById(ex+"-modes");
+    const E = EXAMS[ex];
+    if(!bankReady(ex)){ host.innerHTML = '<p class="muted">Question banks not loaded.</p>'; return; }
+    const total = allQuestions(ex).length;
+    const missed = allQuestions(ex).filter(q=>{const s=DB.stats[q.id];return s&&s.last==="wrong";}).length;
+    const secOpts = E.sections.map(s=>`<option value="${s.key}">${esc(s.name)} — ${sectionQuestions(ex,s).length} q</option>`).join("");
+    const mins = E.sections.reduce((a,s)=>a+s.mins,0);
+    host.innerHTML = `
+      <button class="mode" onclick="startFull('${ex}')">
+        <b>Full simulation &mdash; ${total} questions, ${Math.floor(mins/60)}h ${mins%60}m</b>
+        <span>Real clocks and real mechanics${E.backNav?", back-navigation and flagging within each section":", forward-only with no going back"}.${E.breakAfter?" 10-minute break after Mathematics.":""}</span>
+      </button>
+      <button class="mode" onclick="startSection('${ex}')">
+        <b>Practice one section</b>
+        <span>Untimed, with the full rationale after every answer. The best way to learn.</span>
+      </button>
+      <select id="${ex}-secsel" style="margin:2px 0 10px;max-width:100%">${secOpts}</select>
+      <button class="mode" onclick="startMode('${ex}','missed')" ${missed?"":"disabled"}>
+        <b>Missed-questions requiz${missed?" — "+missed+" waiting":""}</b>
+        <span>${missed? "Re-attempt every item you have gotten wrong." : "Nothing missed yet — take a section first."}</span>
+      </button>
+      <button class="mode" onclick="startMode('${ex}','weak')">
+        <b>Weakest-area drill</b>
+        <span>25 questions drawn from your three lowest-accuracy content areas.</span>
+      </button>`;
+  });
+  renderReadiness();
+  renderDash();
+}
+
+function renderReadiness(){
+  const host = document.getElementById("readiness");
+  const t = DB.attempts.filter(a=>a.exam==="teas" && a.mode==="full");
+  const h = DB.attempts.filter(a=>a.exam==="hesi" && a.mode==="full");
+  if(!t.length && !h.length){
+    host.innerHTML = `<div class="note i"><b>Start with a cold diagnostic.</b> Take one full simulation before studying and do not read the rationales during it &mdash; that first score tells you where the gaps actually are. Afterwards, work the missed-questions requiz and the weakest-area drill, and save your remaining full simulation for a genuine dress rehearsal.</div>`;
+    return;
+  }
+  let html = "";
+  if(t.length){
+    const last = t[t.length-1], band = teasBand(last.pct), pt = evcPoints(last.pct);
+    const two = t.slice(-2).every(a=>a.pct>=85);
+    html += `<div class="note ${two?"g":last.pct>=78?"i":"w"}"><b>TEAS &mdash; last full simulation ${last.pct}% (${band.label}).</b>
+      At EVC that projects <b>${pt.pts} of 25 points</b>${pt.note?" &mdash; "+pt.note:""}.
+      ${two? "You have cleared 85% on two full simulations. That is the readiness bar."
+           : "Readiness means 85%+ on <em>two different</em> full simulations under real time limits."}</div>`;
+  }
+  if(h.length){
+    const last = h[h.length-1];
+    const weak = last.secs.filter(s=>s.pct<75);
+    html += `<div class="note ${weak.length?"w":"g"}"><b>HESI &mdash; last full simulation.</b>
+      ${weak.length? "Below the 75% bar in: <b>"+weak.map(s=>esc(s.name)+" "+s.pct+"%").join(", ")+"</b>. Every section must clear 75% on its own &mdash; De Anza does not average them."
+                   : "All six sections cleared 75%. Aim for an 80%+ margin before booking, since you only get two lifetime attempts."}</div>`;
+  }
+  host.innerHTML = html;
+}
+
+function renderDash(){
+  const host = document.getElementById("dash");
+  if(!DB.attempts.length){ host.innerHTML = '<p class="muted">No attempts yet.</p>'; return; }
+  let html = "";
+  ["teas","hesi"].forEach(ex=>{
+    const at = DB.attempts.filter(a=>a.exam===ex);
+    if(!at.length) return;
+    const acc = subAccuracy(ex);
+    const seen = Object.values(acc).reduce((a,s)=>a+s.seen,0);
+    const right = Object.values(acc).reduce((a,s)=>a+s.right,0);
+    const rows = Object.keys(acc).filter(s=>acc[s].seen>0)
+      .sort((a,b)=>acc[a].pct-acc[b].pct)
+      .map(s=>{
+        const a = acc[s], p = Math.round(a.pct);
+        const cls = p>=85?"p-good":p>=75?"p-flag":"p-warn";
+        return `<div class="rowline"><span class="nm">${esc(s)}<span class="wn">${a.right} of ${a.seen} answered correctly</span></span>
+          <span class="muted">${a.total} in bank</span><span class="pill ${cls}">${p}%</span></div>`;
+      }).join("");
+    html += `<h3 style="margin-top:20px">${EXAMS[ex].name}</h3>
+      <div class="grid3" style="margin-bottom:10px">
+        <div class="stat"><div class="k">${at.length}</div><div class="l">Attempts</div></div>
+        <div class="stat"><div class="k">${seen}</div><div class="l">Questions answered</div></div>
+        <div class="stat"><div class="k">${pct(right,seen)}%</div><div class="l">Lifetime accuracy</div></div>
+      </div>
+      <div class="card">${rows||'<p class="muted">No per-area data yet.</p>'}</div>`;
+  });
+  const list = DB.attempts.slice(-8).reverse().map(a=>{
+    const d = new Date(a.finishedAt);
+    const cls = a.pct>=85?"p-good":a.pct>=75?"p-flag":"p-warn";
+    const mode = a.mode==="full"?"Full simulation":a.mode==="section"?"Section practice":a.mode==="missed"?"Missed requiz":"Weak-area drill";
+    return `<div class="rowline"><span class="nm">${EXAMS[a.exam].short} &middot; ${mode}<span class="wn">${d.toLocaleDateString()} ${d.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"})} &middot; ${a.right}/${a.n}</span></span>
+      <span></span><span class="pill ${cls}">${a.pct}%</span></div>`;
+  }).join("");
+  html += `<h3 style="margin-top:22px">Recent attempts</h3><div class="card">${list}</div>
+    <div class="bar" style="margin-top:12px"><button class="danger" onclick="resetAll()">Reset all progress</button></div>`;
+  host.innerHTML = html;
+}
+function resetAll(){
+  if(!confirm("Delete all attempts and per-question statistics from this browser? Export first if you want a backup.")) return;
+  DB = { v:1, attempts:[], stats:{} }; saveDB(); renderHome();
+  toast("Progress cleared.","w");
+}
+
+/* ============================================================
+   RUN CONTROL
+   ============================================================ */
+let RUN = null, TICK = null, BRK = null;
+
+function startFull(ex){ RUN = buildRun(ex,"full"); beginSection(0); }
+function startSection(ex){
+  const sel = document.getElementById(ex+"-secsel").value;
+  RUN = buildRun(ex,"section",{section:sel}); beginSection(0);
+}
+function startMode(ex,mode){
+  RUN = buildRun(ex,mode,{limit:mode==="weak"?25:60});
+  if(!RUN.sections[0].questions.length){ toast("Nothing to practise there yet.","w"); return; }
+  beginSection(0);
+}
+function beginSection(si){
+  RUN.si = si; RUN.qi = 0;
+  const sec = RUN.sections[si];
+  RUN.secLeft = RUN.timed && sec.mins ? sec.mins*60 : null;
+  show("exam");
+  document.getElementById("ex-quit").textContent = RUN.timed ? "End exam" : "Finish";
+  mountCalc(sec.calc);
+  startTick();
+  renderQ();
+}
+function startTick(){
+  clearInterval(TICK);
+  if(RUN.secLeft===null){ document.getElementById("ex-clock").textContent = "untimed";
+    document.getElementById("ex-clock").className = "clock"; return; }
+  const paint = ()=>{
+    const el = document.getElementById("ex-clock");
+    el.textContent = fmtTime(RUN.secLeft);
+    el.className = "clock" + (RUN.secLeft<=60?" crit":RUN.secLeft<=300?" warn":"");
+  };
+  paint();
+  TICK = setInterval(()=>{
+    RUN.secLeft--;
+    if(RUN.secLeft<=0){ clearInterval(TICK); paint(); finishSection(true); return; }
+    paint();
+  },1000);
+}
+function quitExam(){
+  const msg = RUN.timed ? "End the exam now and score what you have answered?" : "Finish this practice set?";
+  if(!confirm(msg)) return;
+  clearInterval(TICK);
+  RUN.sections = RUN.sections.slice(0, RUN.si+1);
+  finishExam();
+}
+
+/* ---------- rendering a question ---------- */
+function renderQ(){
+  const sec = RUN.sections[RUN.si], q = sec.questions[RUN.qi];
+  const E = EXAMS[RUN.exam];
+  document.getElementById("ex-sect").textContent = sec.name;
+  document.getElementById("ex-pos").textContent = "Question " + (RUN.qi+1) + " of " + sec.questions.length;
+
+  const revealed = !!RUN.revealed[q.id];
+  const a = RUN.answers[q.id];
+  const pas = passageFor(q);
+  let html = '<div class="qcard">';
+
+  if(pas){
+    html += `<div class="passage${pas.kind && pas.kind!=="prose" ? " pre":""}">
+      ${pas.title? "<h4>"+esc(pas.title)+"</h4>":""}${esc(pas.text)}</div>`;
+  }
+  html += '<div class="stem">' + stemHTML(q.q) + '</div>';
+
+  if(q.type==="mc" || q.type==="ms"){
+    if(q.type==="ms") html += '<div class="hint">Select all that apply. No partial credit is given.</div>';
+    html += '<div class="opts">';
+    q.dChoices.forEach((c,i)=>{
+      let cls = "opt" + (q.type==="ms"?" ms":"");
+      const sel = q.type==="mc" ? a===i : Array.isArray(a)&&a.includes(i);
+      if(revealed){
+        const isKey = q.type==="mc" ? i===q.dAnswer : q.dAnswer.includes(i);
+        if(isKey) cls += " right"; else if(sel) cls += " wrong";
+      } else if(sel) cls += " sel";
+      html += `<button class="${cls}" ${revealed?"disabled":""} onclick="pick(${i})">
+        <span class="ltr">${"ABCDEF"[i]}</span><span>${esc(c)}</span></button>`;
+    });
+    html += '</div>';
+  }
+  else if(q.type==="fill"){
+    html += `<input type="text" id="fillbox" value="${a?esc(a):""}" ${revealed?"disabled":""}
+      placeholder="Your answer" oninput="pickFill(this.value)" autocomplete="off">`;
+    if(revealed) html += `<p class="muted" style="margin-top:9px">Accepted: ${q.answer.accept.map(esc).join(" or ")}</p>`;
+  }
+  else if(q.type==="order"){
+    const seq = Array.isArray(a)? a : [];
+    const left = q.items.map((t,i)=>i).filter(i=>!seq.includes(i));
+    html += '<div class="ordwrap"><div class="ordbox"><h5>Steps</h5>' +
+      (left.length? left.map(i=>`<div class="orditem pick" onclick="${revealed?"":"ordAdd("+i+")"}"><span class="txt">${esc(q.items[i])}</span></div>`).join("")
+                  : '<p class="muted" style="margin:4px 0 0;font-size:.82rem">All placed.</p>') +
+      '</div><div class="ordbox"><h5>Your order</h5>' +
+      (seq.length? seq.map((it,pos)=>{
+        let cls = "orditem";
+        if(revealed) cls += (q.answer[pos]===it)?" ":" ";
+        return `<div class="${cls}"><span class="num">${pos+1}</span><span class="txt">${esc(q.items[it])}</span>` +
+          (revealed?"":`<button onclick="ordMove(${pos},-1)" ${pos===0?"disabled":""}>&uarr;</button>
+           <button onclick="ordMove(${pos},1)" ${pos===seq.length-1?"disabled":""}>&darr;</button>
+           <button onclick="ordDel(${pos})">&times;</button>`) + `</div>`;
+      }).join("") : '<p class="muted" style="margin:4px 0 0;font-size:.82rem">Tap a step on the left to place it here.</p>') +
+      '</div></div>';
+    if(revealed){
+      html += '<div class="muted" style="margin-top:10px"><b>Correct order:</b> ' +
+        q.answer.map((it,i)=>(i+1)+". "+esc(q.items[it])).join(" &nbsp; ") + '</div>';
+    }
+  }
+  else if(q.type==="hotspot"){
+    html += '<div class="hswrap">' + q.svg.replace(/<\/svg>\s*$/,"") +
+      q.regions.map(r=>{
+        let cls = "hsreg";
+        if(revealed){ if(r.id===q.answer) cls+=" right"; else if(a===r.id) cls+=" wrong"; }
+        else if(a===r.id) cls+=" sel";
+        return `<rect class="${cls}" x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" rx="3"
+          ${revealed?"":`onclick="pickHot('${r.id}')"`}><title>${esc(r.label)}</title></rect>`;
+      }).join("") + '</svg></div>';
+    if(revealed){
+      const key = q.regions.find(r=>r.id===q.answer);
+      html += `<p class="muted" style="margin-top:9px">Correct region: <b>${esc(key?key.label:q.answer)}</b></p>`;
+    }
+  }
+
+  if(revealed) html += ratHTML(q, a);
+  html += '</div>';
+
+  /* nav */
+  const last = RUN.qi === sec.questions.length-1;
+  const E2 = EXAMS[RUN.exam];
+  html += '<div class="navrow">';
+  if(!RUN.timed){
+    if(revealed){
+      html += last ? `<button class="primary" onclick="finishSection(false)">See results</button>`
+                   : `<button class="primary" onclick="goQ(1)">Next question</button>`;
+    } else {
+      html += `<button class="primary" onclick="reveal()" ${hasAnswer(q)?"":"disabled"}>Check answer</button>
+               <button class="ghost" onclick="reveal()">Skip &amp; show</button>`;
+    }
+  } else if(E2.backNav){
+    html += `<button onclick="goQ(-1)" ${RUN.qi===0?"disabled":""}>&larr; Back</button>`;
+    if(E2.flagging) html += `<button class="flagbtn ${RUN.flags[q.id]?"on":""}" onclick="toggleFlag()">${RUN.flags[q.id]?"Flagged":"Flag"}</button>`;
+    html += `<span class="sp"></span>`;
+    html += last ? `<button class="primary" onclick="finishSection(false)">Submit section</button>`
+                 : `<button class="primary" onclick="goQ(1)">Next &rarr;</button>`;
+  } else {
+    html += `<span class="sp"></span>`;
+    html += last ? `<button class="primary" onclick="finishSection(false)">Submit section</button>`
+                 : `<button class="primary" onclick="goQ(1)">Next &rarr;</button>`;
+  }
+  html += '</div>';
+
+  if(!E2.backNav && RUN.timed) html += '<p class="muted" style="margin-top:10px">HESI is forward-only: once you move on, the answer is locked and you cannot return. Never leave one blank &mdash; an unanswered question is scored wrong.</p>';
+
+  /* palette */
+  if(RUN.timed && E2.backNav){
+    html += '<div class="palette">' + sec.questions.map((qq,i)=>{
+      let cls = "pbtn";
+      if(RUN.answers[qq.id]!==undefined) cls+=" ans";
+      if(RUN.flags[qq.id]) cls+=" flg";
+      if(i===RUN.qi) cls+=" cur";
+      return `<button class="${cls}" onclick="jumpQ(${i})">${i+1}</button>`;
+    }).join("") + '</div>';
+  }
+
+  document.getElementById("ex-body").innerHTML = html;
+}
+function ratHTML(q,a){
+  const ok = isCorrect(q,a);
+  let h = `<div class="rat ${ok?"right":"wrong"}"><div class="verdict">${ok?"Correct":"Not correct"}</div>
+    <div>${esc(q.rationale.correct)}</div>`;
+  if((q.type==="mc"||q.type==="ms") && q.dWrong && q.dWrong.some(x=>x)){
+    h += '<ul class="why">' + q.dWrong.map((w,i)=> w? `<li><b>${"ABCDEF"[i]}</b> &mdash; ${esc(w)}</li>`:"").join("") + '</ul>';
+  }
+  return h + '</div>';
+}
+function hasAnswer(q){
+  const a = RUN.answers[q.id];
+  return !(a===undefined||a===null||a===""||(Array.isArray(a)&&!a.length));
+}
+function pick(i){
+  const q = RUN.sections[RUN.si].questions[RUN.qi];
+  if(RUN.revealed[q.id]) return;
+  if(q.type==="mc") RUN.answers[q.id] = i;
+  else{ const cur = Array.isArray(RUN.answers[q.id])? RUN.answers[q.id].slice():[];
+    const at = cur.indexOf(i); if(at>=0) cur.splice(at,1); else cur.push(i);
+    RUN.answers[q.id] = cur.sort((x,y)=>x-y); }
+  renderQ();
+}
+function pickFill(v){ RUN.answers[RUN.sections[RUN.si].questions[RUN.qi].id] = v; }
+function pickHot(id){ const q=RUN.sections[RUN.si].questions[RUN.qi];
+  if(RUN.revealed[q.id]) return; RUN.answers[q.id]=id; renderQ(); }
+function ordAdd(i){ const q=RUN.sections[RUN.si].questions[RUN.qi];
+  const cur = Array.isArray(RUN.answers[q.id])? RUN.answers[q.id].slice():[];
+  cur.push(i); RUN.answers[q.id]=cur; renderQ(); }
+function ordDel(pos){ const q=RUN.sections[RUN.si].questions[RUN.qi];
+  const cur = RUN.answers[q.id].slice(); cur.splice(pos,1); RUN.answers[q.id]=cur; renderQ(); }
+function ordMove(pos,d){ const q=RUN.sections[RUN.si].questions[RUN.qi];
+  const cur = RUN.answers[q.id].slice(); const t=pos+d;
+  if(t<0||t>=cur.length) return; [cur[pos],cur[t]]=[cur[t],cur[pos]]; RUN.answers[q.id]=cur; renderQ(); }
+function toggleFlag(){ const q=RUN.sections[RUN.si].questions[RUN.qi];
+  RUN.flags[q.id] = !RUN.flags[q.id]; renderQ(); }
+function reveal(){ const q=RUN.sections[RUN.si].questions[RUN.qi];
+  RUN.revealed[q.id]=true; renderQ(); }
+function goQ(d){
+  const sec = RUN.sections[RUN.si];
+  const q = sec.questions[RUN.qi];
+  if(d>0 && RUN.timed && !EXAMS[RUN.exam].backNav && !hasAnswer(q)){
+    if(!confirm("You have not answered this question, and HESI will not let you come back to it. An unanswered question is scored wrong. Move on anyway?")) return;
+  }
+  RUN.qi = Math.max(0, Math.min(sec.questions.length-1, RUN.qi+d));
+  renderQ();
+}
+function jumpQ(i){ RUN.qi = i; renderQ(); }
+
+function finishSection(auto){
+  clearInterval(TICK);
+  const sec = RUN.sections[RUN.si];
+  if(!auto && RUN.timed){
+    const blanks = sec.questions.filter(q=>!hasAnswer(q)).length;
+    if(blanks && !confirm(blanks+" question"+(blanks>1?"s are":" is")+" unanswered and will be scored wrong. Submit "+sec.name+" anyway?")) { startTick(); return; }
+  }
+  if(auto) toast("Time expired — "+sec.name+" submitted.","w");
+  RUN.done.push(sec.key);
+  const E = EXAMS[RUN.exam];
+  const next = RUN.si+1;
+  if(next >= RUN.sections.length){ finishExam(); return; }
+  if(RUN.timed && E.breakAfter === sec.key){ startBreak(next); return; }
+  beginSection(next);
+}
+function startBreak(nextSi){
+  show("break"); mountCalc(false);
+  let left = EXAMS[RUN.exam].breakSecs;
+  const el = document.getElementById("brk-clock");
+  el.textContent = fmtTime(left);
+  clearInterval(BRK);
+  BRK = setInterval(()=>{ left--; el.textContent = fmtTime(left);
+    if(left<=0){ clearInterval(BRK); beginSection(nextSi); } },1000);
+  RUN._nextSi = nextSi;
+}
+function endBreak(){ clearInterval(BRK); beginSection(RUN._nextSi); }
+
+/* ============================================================
+   RESULTS
+   ============================================================ */
+function finishExam(){
+  clearInterval(TICK); mountCalc(false);
+  const sc = scoreRun(RUN);
+  commitRun(RUN, sc);
+  renderResults(sc);
+  show("results");
+}
+function renderResults(sc){
+  const E = EXAMS[RUN.exam];
+  const full = RUN.mode==="full";
+  let html = `<header class="top"><div><h1>${esc(E.name)} &mdash; results</h1>
+    <p class="sub">${full?"Full simulation":RUN.sections[0].name} &middot; ${sc.right} of ${sc.n} correct</p></div>
+    <div class="bar" style="margin:0">
+      <button class="primary" onclick="openReview()">Review every question</button>
+      <button onclick="show('home');renderHome()">Home</button>
+    </div></header>`;
+
+  if(RUN.exam==="teas" && full){
+    const band = teasBand(sc.pct), pt = evcPoints(sc.pct);
+    html += `<div class="grid3">
+      <div class="stat"><div class="k">${sc.pct}%</div><div class="l">Total score</div></div>
+      <div class="stat"><div class="k">${band.label}</div><div class="l">ATI preparedness level</div></div>
+      <div class="stat"><div class="k">${pt.pts} / 25</div><div class="l">Projected EVC points</div></div>
+    </div>`;
+    const prior = DB.attempts.filter(a=>a.exam==="teas"&&a.mode==="full");
+    const two = prior.slice(-2);
+    html += `<div class="note ${sc.pct>=85?"g":sc.pct>=62?"i":"w"}">
+      ${sc.pct>=85 ? "<b>At or above the 85% band.</b> That is the maximum 25 points at Evergreen Valley."
+       : sc.pct>=62 ? "<b>Above EVC's 62% minimum, below the 85% maximum-points band.</b> Every band you climb is worth 5 points, and your first passing score is permanent — do not sit the real exam until you are consistently at 85%."
+       : "<b>Below EVC's 62% floor.</b> A score this low would not be usable. Keep practising; nothing here is on your record."}
+      ${two.length>=2 && two.every(a=>a.pct>=85) ? " You have now cleared 85% on two full simulations — that is the readiness bar." : ""}
+    </div>`;
+  }
+  if(RUN.exam==="hesi" && full){
+    const weak = sc.secs.filter(s=>s.pct<75);
+    html += `<div class="note ${weak.length?"w":"g"}">
+      ${weak.length? "<b>"+weak.length+" section"+(weak.length>1?"s":"")+" below the 75% bar.</b> De Anza scores each section independently — a strong average does not rescue a weak section."
+                   : "<b>All six sections cleared 75%.</b> With only two lifetime attempts, aim for an 80%+ cushion on every section before you book."}
+    </div>`;
+  }
+
+  html += '<h2>By section</h2><div class="card">';
+  sc.secs.forEach(s=>{
+    const bar = RUN.exam==="hesi" ? 75 : 85;
+    const cls = s.pct>=bar?"p-good":s.pct>=(bar-10)?"p-flag":"p-warn";
+    html += `<div class="rowline"><span class="nm">${esc(s.name)}
+      <span class="wn">${s.right} of ${s.n} correct${s.blank?" &middot; "+s.blank+" left blank (scored wrong)":""}</span></span>
+      <span class="muted">${RUN.exam==="hesi"?"needs 75%":""}</span>
+      <span class="pill ${cls}">${s.pct}%</span></div>`;
+  });
+  html += '</div>';
+
+  html += '<h2>By content area</h2><div class="card">';
+  const subs = {};
+  sc.secs.forEach(s=>Object.keys(s.subs).forEach(k=>{
+    subs[k] = subs[k]||{n:0,r:0}; subs[k].n+=s.subs[k].n; subs[k].r+=s.subs[k].r; }));
+  Object.keys(subs).sort((a,b)=>pct(subs[a].r,subs[a].n)-pct(subs[b].r,subs[b].n)).forEach(k=>{
+    const p = pct(subs[k].r,subs[k].n);
+    const cls = p>=85?"p-good":p>=75?"p-flag":"p-warn";
+    html += `<div class="rowline"><span class="nm">${esc(k)}<span class="wn">${subs[k].r} of ${subs[k].n}</span></span>
+      <span></span><span class="pill ${cls}">${p}%</span></div>`;
+  });
+  html += '</div>';
+
+  html += `<div class="note i"><b>What to do next.</b> Open the review, read the rationale on every item you missed, then run the
+    <b>missed-questions requiz</b> in a day or two &mdash; spacing the retry is what makes it stick. Save a fresh full simulation for a real dress rehearsal rather than burning it now.</div>`;
+
+  document.getElementById("res-body").innerHTML = html;
+}
+
+/* ============================================================
+   REVIEW
+   ============================================================ */
+let RVFILTER = "all";
+function openReview(){ RVFILTER="all"; show("review"); renderReview(); }
+function rvFilter(f){ RVFILTER=f; renderReview(); }
+function renderReview(){
+  const E = EXAMS[RUN.exam];
+  document.getElementById("rv-title").textContent = E.name + " — review";
+  let items = [];
+  RUN.sections.forEach(sec=>sec.questions.forEach(q=>items.push({q,sec})));
+  const missed = items.filter(x=>!isCorrect(x.q, RUN.answers[x.q.id])).length;
+  document.getElementById("rv-sub").textContent =
+    missed + " missed of " + items.length + " — read the rationale on every one";
+  if(RVFILTER==="missed") items = items.filter(x=>!isCorrect(x.q, RUN.answers[x.q.id]));
+  if(RVFILTER==="flag")   items = items.filter(x=>RUN.flags[x.q.id]);
+
+  document.getElementById("rv-body").innerHTML = items.length ? items.map(({q,sec})=>{
+    const a = RUN.answers[q.id];
+    const ok = isCorrect(q,a);
+    const pas = passageFor(q);
+    let h = `<div class="qcard"><div class="muted" style="font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">
+      ${esc(sec.name)} &middot; ${esc(q.sub)} &middot; <span class="pill ${ok?"p-good":"p-warn"}">${ok?"correct":"missed"}</span></div>`;
+    if(pas) h += `<div class="passage${pas.kind&&pas.kind!=="prose"?" pre":""}">${pas.title?"<h4>"+esc(pas.title)+"</h4>":""}${esc(pas.text)}</div>`;
+    h += '<div class="stem">' + stemHTML(q.q) + '</div>';
+    if(q.type==="mc"||q.type==="ms"){
+      h += '<div class="opts">' + q.dChoices.map((c,i)=>{
+        const isKey = q.type==="mc" ? i===q.dAnswer : q.dAnswer.includes(i);
+        const sel = q.type==="mc" ? a===i : Array.isArray(a)&&a.includes(i);
+        const cls = "opt " + (isKey?"right":sel?"wrong":"");
+        return `<div class="${cls}"><span class="ltr">${"ABCDEF"[i]}</span><span>${esc(c)}${sel?' <b class="muted">&mdash; your answer</b>':""}</span></div>`;
+      }).join("") + '</div>';
+    } else if(q.type==="fill"){
+      h += `<p>Your answer: <b>${a?esc(a):"(blank)"}</b> &middot; Accepted: <b>${q.answer.accept.map(esc).join(" or ")}</b></p>`;
+    } else if(q.type==="order"){
+      h += `<p class="muted">Correct order: ${q.answer.map((it,i)=>(i+1)+". "+esc(q.items[it])).join(" &nbsp; ")}</p>`;
+      if(Array.isArray(a)&&a.length) h += `<p class="muted">Your order: ${a.map((it,i)=>(i+1)+". "+esc(q.items[it])).join(" &nbsp; ")}</p>`;
+    } else if(q.type==="hotspot"){
+      const key = q.regions.find(r=>r.id===q.answer), mine = q.regions.find(r=>r.id===a);
+      h += `<p class="muted">Correct region: <b>${esc(key?key.label:"")}</b>${mine&&mine.id!==q.answer?" &middot; you chose <b>"+esc(mine.label)+"</b>":""}</p>`;
+    }
+    return h + ratHTML(q,a) + '</div>';
+  }).join("") : '<div class="card"><p class="muted">Nothing matches that filter.</p></div>';
+  window.scrollTo(0,0);
+}
+
+/* ============================================================
+   CALCULATOR (four-function, matching the real exams)
+   ============================================================ */
+let CALC = { acc:null, op:null, cur:"0", fresh:true };
+function mountCalc(on){
+  const host = document.getElementById("calcHost");
+  if(!on){ host.innerHTML=""; return; }
+  CALC = { acc:null, op:null, cur:"0", fresh:true };
+  const keys = [["7","8","9","/"],["4","5","6","*"],["1","2","3","-"],["0",".","=","+"]];
+  host.innerHTML = `<div class="calcpad"><div class="disp" id="calcdisp">0</div><div class="calcgrid">
+    <button onclick="calcKey('C')">C</button><button onclick="calcKey('back')">&larr;</button>
+    <button onclick="calcKey('%')">%</button><button onclick="calcKey('neg')">&plusmn;</button>` +
+    keys.flat().map(k=>`<button onclick="calcKey('${k}')">${k==="*"?"&times;":k==="/"?"&divide;":k}</button>`).join("") +
+    `</div></div>`;
+}
+function calcPaint(){ const d=document.getElementById("calcdisp"); if(d) d.textContent = CALC.cur; }
+function calcKey(k){
+  const C = CALC;
+  if(/^[0-9]$/.test(k)){ C.cur = (C.fresh||C.cur==="0")? k : C.cur+k; C.fresh=false; }
+  else if(k==="."){ if(C.fresh){C.cur="0.";C.fresh=false;} else if(!C.cur.includes(".")) C.cur+="."; }
+  else if(k==="C"){ CALC = {acc:null,op:null,cur:"0",fresh:true}; }
+  else if(k==="back"){ C.cur = C.cur.length>1? C.cur.slice(0,-1) : "0"; }
+  else if(k==="neg"){ C.cur = C.cur.startsWith("-")? C.cur.slice(1) : (C.cur==="0"?C.cur:"-"+C.cur); }
+  else if(k==="%"){ C.cur = String(parseFloat(C.cur)/100); C.fresh=true; }
+  else if(["+","-","*","/"].includes(k)){
+    if(C.op!==null && !C.fresh) calcEq();
+    C.acc = parseFloat(C.cur); C.op = k; C.fresh = true;
+  }
+  else if(k==="="){ calcEq(); C.op=null; }
+  calcPaint();
+}
+function calcEq(){
+  const C = CALC;
+  if(C.op===null || C.acc===null) return;
+  const b = parseFloat(C.cur), a = C.acc;
+  let r = C.op==="+"?a+b : C.op==="-"?a-b : C.op==="*"?a*b : (b===0? NaN : a/b);
+  if(!isFinite(r)) { C.cur="Error"; C.acc=null; C.fresh=true; return; }
+  r = Math.round(r*1e10)/1e10;
+  C.cur = String(r); C.acc = r; C.fresh = true;
+}
+
+/* ============================================================
+   SELF-TEST — run __selftest() in the console
+   Drives the real prepQ/isCorrect/scoreRun paths against the live banks.
+   ============================================================ */
+function __selftest(){
+  const log = [];
+  const fail = m => log.push("FAIL: " + m);
+  Object.keys(EXAMS).forEach(ex=>{
+    if(!bankReady(ex)){ fail(ex+": banks not loaded"); return; }
+    const run = buildRun(ex,"full");
+    const nSec = run.sections.length;
+    log.push(ex+": "+nSec+" sections, "+run.sections.reduce((a,s)=>a+s.questions.length,0)+" questions");
+    run.sections.forEach(sec=>{
+      if(!sec.questions.length) fail(ex+"/"+sec.key+": empty section");
+      const ids = new Set();
+      sec.questions.forEach(q=>{
+        if(ids.has(q.id)) fail("duplicate id in run: "+q.id); ids.add(q.id);
+        if(!q.rationale||!q.rationale.correct) fail(q.id+": no rationale");
+        if(q.passage && !passageFor(q)) fail(q.id+": passage missing");
+        if((q.type==="mc"||q.type==="ms") && !q.dChoices) fail(q.id+": prepQ did not shuffle");
+      });
+    });
+    /* answer everything correctly */
+    run.answers = {};
+    run.sections.forEach(sec=>sec.questions.forEach(q=>{
+      run.answers[q.id] =
+        q.type==="mc" ? q.dAnswer :
+        q.type==="ms" ? q.dAnswer.slice() :
+        q.type==="fill" ? q.answer.accept[0] :
+        q.type==="order" ? q.answer.slice() :
+        q.type==="hotspot" ? q.answer : null;
+    }));
+    let sc = scoreRun(run);
+    if(sc.pct!==100) fail(ex+": all-correct run scored "+sc.pct+"% (expected 100). "+
+      run.sections.flatMap(s=>s.questions).filter(q=>!isCorrect(q,run.answers[q.id])).map(q=>q.id+"/"+q.type).slice(0,8).join(", "));
+    else log.push(ex+": all-correct = 100% ok");
+    /* answer everything wrong */
+    run.answers = {};
+    run.sections.forEach(sec=>sec.questions.forEach(q=>{
+      run.answers[q.id] =
+        q.type==="mc" ? (q.dAnswer+1)%q.dChoices.length :
+        q.type==="ms" ? [(q.dAnswer[0]+1)%q.dChoices.length].filter(i=>!q.dAnswer.includes(i)) :
+        q.type==="fill" ? " zzz" :
+        q.type==="order" ? q.answer.slice().reverse() :
+        q.type==="hotspot" ? "__none" : null;
+    }));
+    sc = scoreRun(run);
+    if(sc.right!==0) fail(ex+": all-wrong run still scored "+sc.right+" correct");
+    else log.push(ex+": all-wrong = 0 correct ok");
+    /* blanks count as wrong and are reported */
+    run.answers = {};
+    sc = scoreRun(run);
+    const blanks = sc.secs.reduce((a,s)=>a+s.blank,0);
+    if(blanks!==sc.n) fail(ex+": blank count "+blanks+" != "+sc.n);
+    else log.push(ex+": blanks counted as wrong ok");
+  });
+  const bad = log.filter(l=>l.startsWith("FAIL"));
+  log.push(bad.length ? ("=== "+bad.length+" FAILURE(S) ===") : "=== ALL SELF-TESTS PASS ===");
+  return log.join("\n");
+}
+window.__selftest = __selftest;
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+loadDB();
+renderHome();
+window.addEventListener("beforeunload", e=>{
+  if(RUN && RUN.timed && !document.getElementById("scr-exam").classList.contains("hide")){
+    e.preventDefault(); e.returnValue = "";
+  }
+});
+</script>
+</body>
+</html>
