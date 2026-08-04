@@ -204,6 +204,7 @@ input[type=text]:focus,input[type=number]:focus{outline:2px solid var(--accent);
       <p class="sub">ATI TEAS 7 &middot; HESI A2 &mdash; blueprint-exact simulations</p>
     </div>
     <div class="bar" style="margin:0">
+      <button onclick="location.href='https://producer456hub.github.io/nursing-planner/'">&larr; Nursing plan</button>
       <button onclick="exportData()">Export &darr;</button>
       <button onclick="document.getElementById('imp').click()">Import &uarr;</button>
       <input type="file" id="imp" accept=".json" class="hide" onchange="importData(event)">
@@ -1163,11 +1164,18 @@ function __selftest(){
     const ids = new Set(A.map(q=>q.id));
     const dupId = B.filter(q=>ids.has(q.id)).map(q=>q.id);
     if(dupId.length) fail(ex+": Form B reuses Form A ids: "+dupId.slice(0,5).join(","));
-    const norm = t=>t.toLowerCase().replace(/\W+/g," ").trim();
-    const stems = new Set(A.map(q=>norm(q.q)));
-    const dupQ = B.filter(q=>stems.has(norm(q.q)));
-    if(dupQ.length>3) fail(ex+": Form B repeats "+dupQ.length+" Form A stems, e.g. "+dupQ.slice(0,3).map(q=>q.id).join(","));
-    else log.push(ex+": forms non-overlapping ("+A.length+" vs "+B.length+" questions, "+dupQ.length+" shared generic stems)");
+    /* A shared stem is only a defect if the OPTIONS match too. Generic instructions
+       ("Which statement best expresses the main idea?") legitimately recur over
+       different passages — that is how the real exams are written. */
+    const norm = t=>String(t).toLowerCase().replace(/\W+/g," ").trim();
+    const byStem = new Map(); A.forEach(q=>byStem.set(norm(q.q), q));
+    const shared = B.filter(q=>byStem.has(norm(q.q)));
+    const reused = shared.filter(q=>{
+      const a = byStem.get(norm(q.q));
+      return JSON.stringify(a.choices||a.items||null) === JSON.stringify(q.choices||q.items||null);
+    });
+    if(reused.length) fail(ex+": Form B reuses "+reused.length+" whole Form A item(s): "+reused.slice(0,5).map(q=>q.id).join(","));
+    else log.push(ex+": forms non-overlapping ("+A.length+" vs "+B.length+" questions; "+shared.length+" generic stems shared, 0 whole items)");
   });
   const bad = log.filter(l=>l.startsWith("FAIL"));
   log.push(bad.length ? ("=== "+bad.length+" FAILURE(S) ===") : "=== ALL SELF-TESTS PASS ===");

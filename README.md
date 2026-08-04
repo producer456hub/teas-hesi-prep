@@ -13,9 +13,12 @@ Both exams have rules that make a bad first attempt expensive:
 
 So the goal here is not to feel prepared — it's to be reliably above the bar before booking either exam.
 
+Companion to the [nursing school planner](https://producer456hub.github.io/nursing-planner/). Both sites are served from the same origin, so the planner reads your practice results here and turns them into a projected Evergreen Valley point score and per-section HESI warnings.
+
 ## What it does
 
 - **Full simulation** with the real mechanics: TEAS runs four separately-timed sections (Reading 45q/55min, Math 38q/57min, Science 50q/60min, English 37q/37min) with back-navigation, flagging, a 10-minute break after Math, and a four-function calculator in Math only. HESI runs six sections **forward-only** — no skipping, no going back, answers lock on Next, exactly as the real test behaves.
+- **Two non-overlapping forms per exam** (ATI's own A/B design). 900 original questions in total: TEAS 170 × 2, HESI 280 × 2. Forms A and B share no question, so a second sitting measures what you have learned rather than what you remember — and readiness is defined as clearing your target on *both*.
 - **Blueprint-exact question distribution.** Every item is tagged to a published sub-content area and the counts match ATI's and Elsevier's official allocations.
 - **All four TEAS alternate item types** — multiple-select, supply-answer fill-in, ordered response, and hot-spot — scored all-or-nothing with no partial credit, as ATI specifies. HESI is multiple-choice plus numeric entry only, because adding the others would make it *less* realistic.
 - **A rationale on every question** explaining why the key is right and why each distractor is wrong.
