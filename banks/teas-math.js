@@ -84,7 +84,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 1,
-      secs: 75
+      secs: 90
     },
 
     {
@@ -137,7 +137,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 1,
-      secs: 70
+      secs: 90
     },
 
     {
@@ -182,7 +182,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 1,
-      secs: 70
+      secs: 90
     },
 
     {
@@ -215,7 +215,7 @@ window.BANKS["teas-math"] = {
         correct: "Percent change = (change ÷ original) × 100. The change is 180 - 153 = 27, so 27 / 180 = 0.15, which is 15%. The classic errors are dividing by the NEW weight (27 / 153 = 17.6%) instead of the original, and forgetting to multiply by 100 (0.15)."
       },
       diff: 2,
-      secs: 95
+      secs: 90
     },
 
     {
@@ -235,7 +235,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 3,
-      secs: 110
+      secs: 90
     },
 
     {
@@ -255,7 +255,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 1,
-      secs: 75
+      secs: 90
     },
 
     {
@@ -275,7 +275,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 2,
-      secs: 85
+      secs: 90
     },
 
     {
@@ -373,7 +373,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 1,
-      secs: 65
+      secs: 90
     },
 
     {
@@ -435,7 +435,7 @@ window.BANKS["teas-math"] = {
         correct: "The bar heights read Mon 30, Tue 45, Wed 25, Thu 40. Wednesday is the only day whose count is LOWER than the day before it (45 down to 25). Tuesday rose from 30 to 45, Thursday rose from 25 to 40, and Monday has no previous day shown to compare against."
       },
       diff: 2,
-      secs: 95
+      secs: 90
     },
 
     {
@@ -455,7 +455,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 1,
-      secs: 75
+      secs: 90
     },
 
     {
@@ -515,7 +515,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 2,
-      secs: 85
+      secs: 90
     },
 
     {
@@ -528,7 +528,7 @@ window.BANKS["teas-math"] = {
         correct: "Add the five readings (92 + 88 + 105 + 96 + 85 = 466) and divide by how many there are: 466 ÷ 5 = 93.2 mg/dL. Dividing by 4 instead of 5, or dropping one reading from the sum, are the common slips."
       },
       diff: 1,
-      secs: 80
+      secs: 90
     },
 
     {
@@ -568,7 +568,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 3,
-      secs: 110
+      secs: 90
     },
 
     {
@@ -608,7 +608,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 3,
-      secs: 110
+      secs: 90
     },
 
     {
@@ -648,7 +648,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 1,
-      secs: 75
+      secs: 90
     },
 
     {
@@ -721,7 +721,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 2,
-      secs: 95
+      secs: 90
     },
 
     {
@@ -741,7 +741,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 2,
-      secs: 95
+      secs: 90
     }
 
   ]
