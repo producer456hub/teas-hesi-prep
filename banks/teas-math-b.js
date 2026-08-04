@@ -211,7 +211,7 @@ window.BANKS["teas-math-b"] = {
       sub: "Numbers and Algebra",
       type: "fill",
       q: "Enrollment in a nursing program grew from 240 students to 288 students. What was the percent increase in enrollment? Record your answer as a number without the percent sign.",
-      answer: { accept: ["20", "20.0", "20%"] },
+      answer: { accept: ["20", "20.0"] },
       rationale: {
         correct: "Percent change = (change ÷ original) × 100. The change is 288 - 240 = 48, so 48 / 240 = 0.20, which is 20%. The classic errors are dividing by the NEW enrollment (48 / 288 = 16.7%) instead of the original, and forgetting to multiply by 100 (0.20)."
       },
