@@ -118,6 +118,10 @@ input[type=text]:focus,input[type=number]:focus{outline:2px solid var(--accent);
 .orditem button{padding:2px 7px;font-size:.72rem;border-radius:5px}
 .orditem.pick{cursor:pointer}
 .orditem.pick:hover{border-color:var(--accent);background:var(--accent-soft)}
+.orditem.okpos{border-color:var(--good);background:var(--good-soft)}
+.orditem.okpos .num{background:var(--good)}
+.orditem.badpos{border-color:var(--warn);background:var(--warn-soft)}
+.orditem.badpos .num{background:var(--warn)}
 
 /* hotspot */
 .hswrap{position:relative;display:inline-block;max-width:100%;border:1px solid var(--line);
@@ -493,19 +497,23 @@ function isCorrect(q, a){
   return false;
 }
 function scoreRun(run){
+  /* A timed simulation scores every question, because the real exam does:
+     leaving one blank costs you the point. Untimed practice scores only what
+     you actually worked, so stopping early doesn't look like failure. */
   const secs = run.sections.map(sec=>{
-    let right=0, blank=0;
+    let right=0, blank=0, n=0;
     const subs = {};
     sec.questions.forEach(q=>{
       const a = run.answers[q.id];
-      const ok = isCorrect(q,a);
       const unanswered = a===undefined || a===null || (Array.isArray(a)&&!a.length) || a==="";
+      if(!run.timed && !run.revealed[q.id]) return;
+      n++;
+      const ok = isCorrect(q,a);
       if(unanswered) blank++;
       if(ok) right++;
       subs[q.sub] = subs[q.sub] || {n:0,r:0};
       subs[q.sub].n++; if(ok) subs[q.sub].r++;
     });
-    const n = sec.questions.length;
     return { key:sec.key, name:sec.name, n, right, blank, pct:pct(right,n), subs };
   });
   const n = secs.reduce((a,s)=>a+s.n,0), right = secs.reduce((a,s)=>a+s.right,0);
@@ -517,8 +525,7 @@ function evcPoints(p){ return EXAMS.teas.points.find(b=>p>=b.min); }
 function commitRun(run, sc){
   run.sections.forEach(sec=>sec.questions.forEach(q=>{
     const a = run.answers[q.id];
-    const answered = !(a===undefined||a===null||(Array.isArray(a)&&!a.length)||a==="");
-    if(!answered && run.mode!=="full") return;
+    if(!run.timed && !run.revealed[q.id]) return;   /* never worked — don't record it */
     const ok = isCorrect(q,a);
     const st = DB.stats[q.id] || {seen:0,right:0};
     st.seen++; if(ok) st.right++;
@@ -749,7 +756,7 @@ function renderQ(){
       '</div><div class="ordbox"><h5>Your order</h5>' +
       (seq.length? seq.map((it,pos)=>{
         let cls = "orditem";
-        if(revealed) cls += (q.answer[pos]===it)?" ":" ";
+        if(revealed) cls += (q.answer[pos]===it) ? " okpos" : " badpos";
         return `<div class="${cls}"><span class="num">${pos+1}</span><span class="txt">${esc(q.items[it])}</span>` +
           (revealed?"":`<button onclick="ordMove(${pos},-1)" ${pos===0?"disabled":""}>&uarr;</button>
            <button onclick="ordMove(${pos},1)" ${pos===seq.length-1?"disabled":""}>&darr;</button>
@@ -1096,7 +1103,7 @@ function __selftest(){
       run.answers[q.id] =
         q.type==="mc" ? (q.dAnswer+1)%q.dChoices.length :
         q.type==="ms" ? [(q.dAnswer[0]+1)%q.dChoices.length].filter(i=>!q.dAnswer.includes(i)) :
-        q.type==="fill" ? " zzz" :
+        q.type==="fill" ? "zzz" :
         q.type==="order" ? q.answer.slice().reverse() :
         q.type==="hotspot" ? "__none" : null;
     }));
