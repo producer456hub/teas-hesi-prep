@@ -104,7 +104,7 @@ window.BANKS["teas-reading"] = {
           "Observers are mentioned only as the source of the counts; the passage never claims staff misreport their own behavior."
         ]
       },
-      diff: 2, secs: 75
+      diff: 2, secs: 73
     },
     {
       id: "TRA-002", sub: "Craft and Structure", type: "mc", passage: "p-handwash",
@@ -125,7 +125,7 @@ window.BANKS["teas-reading"] = {
           "The closing sentences separate knowing from doing, so knowledge is precisely what compliance is not."
         ]
       },
-      diff: 2, secs: 70
+      diff: 2, secs: 73
     },
     {
       id: "TRA-003", sub: "Integration of Knowledge and Ideas", type: "mc", passage: "p-handwash",
@@ -146,7 +146,7 @@ window.BANKS["teas-reading"] = {
           "The last paragraph states that information was never the missing part, which contradicts this option."
         ]
       },
-      diff: 3, secs: 90
+      diff: 3, secs: 73
     },
     {
       id: "TRA-004", sub: "Craft and Structure", type: "mc", passage: "p-clinic",
@@ -167,7 +167,7 @@ window.BANKS["teas-reading"] = {
           null
         ]
       },
-      diff: 2, secs: 72
+      diff: 1, secs: 73
     },
     {
       id: "TRA-005", sub: "Integration of Knowledge and Ideas", type: "mc", passage: "p-clinic",
@@ -188,7 +188,7 @@ window.BANKS["teas-reading"] = {
           "Neighboring counties running six days would support the proposal rather than weaken it."
         ]
       },
-      diff: 3, secs: 90
+      diff: 3, secs: 73
     },
     {
       id: "TRA-006", sub: "Craft and Structure", type: "mc", passage: "p-clinic",
@@ -209,7 +209,7 @@ window.BANKS["teas-reading"] = {
           "A survey percentage is verifiable by looking at the survey results."
         ]
       },
-      diff: 2, secs: 72
+      diff: 2, secs: 73
     },
     {
       id: "TRA-007", sub: "Integration of Knowledge and Ideas", type: "mc", passage: "p-bakery",
@@ -230,7 +230,7 @@ window.BANKS["teas-reading"] = {
           "Rosa deliberately says nothing; the story makes her silence, not her encouragement, the useful thing."
         ]
       },
-      diff: 2, secs: 78
+      diff: 2, secs: 73
     },
     {
       id: "TRA-008", sub: "Key Ideas and Details", type: "mc", passage: "p-bakery",
@@ -251,7 +251,7 @@ window.BANKS["teas-reading"] = {
           null
         ]
       },
-      diff: 2, secs: 78
+      diff: 2, secs: 73
     },
     {
       id: "TRA-009", sub: "Craft and Structure", type: "mc", passage: "p-bakery",
@@ -267,7 +267,7 @@ window.BANKS["teas-reading"] = {
           "Third person omniscient would also report Rosa's thoughts, which the passage deliberately leaves unknown."
         ]
       },
-      diff: 1, secs: 55
+      diff: 1, secs: 73
     },
     {
       id: "TRA-010", sub: "Key Ideas and Details", type: "order", passage: "p-icebox",
@@ -283,7 +283,7 @@ window.BANKS["teas-reading"] = {
       rationale: {
         correct: "The passage marks every stage with a date, so the sequence is read off the time words rather than reasoned out: lake-ice harvesting belongs to the nineteenth century and the early twentieth, the first electric refrigerators appear in the 1910s and 1920s, the safer refrigerant gases arrive in the 1930s, refrigerators become ordinary by the end of the 1940s, and frozen dinners follow in the 1950s."
       },
-      diff: 2, secs: 105
+      diff: 2, secs: 73
     },
     {
       id: "TRA-011", sub: "Key Ideas and Details", type: "mc", passage: "p-icebox",
@@ -304,7 +304,7 @@ window.BANKS["teas-reading"] = {
           "The passage puts the ice at the top and the food on shelves below, and never mentions moving food overnight."
         ]
       },
-      diff: 1, secs: 60
+      diff: 1, secs: 73
     },
     {
       id: "TRA-012", sub: "Craft and Structure", type: "mc", passage: "p-icebox",
@@ -325,7 +325,7 @@ window.BANKS["teas-reading"] = {
           "No categories are named or sorted; the passage narrates a change."
         ]
       },
-      diff: 2, secs: 72
+      diff: 2, secs: 73
     },
     {
       id: "TRA-013", sub: "Key Ideas and Details", type: "mc", passage: "p-wetland",
@@ -346,7 +346,7 @@ window.BANKS["teas-reading"] = {
           null
         ]
       },
-      diff: 3, secs: 90
+      diff: 3, secs: 73
     },
     {
       id: "TRA-014", sub: "Integration of Knowledge and Ideas", type: "mc", passage: "p-wetland",
@@ -367,7 +367,7 @@ window.BANKS["teas-reading"] = {
           "This reports a successful use of wetlands and would support the opposite conclusion."
         ]
       },
-      diff: 2, secs: 80
+      diff: 2, secs: 73
     },
     {
       id: "TRA-015", sub: "Integration of Knowledge and Ideas", type: "ms", passage: "p-wetland",
@@ -392,7 +392,7 @@ window.BANKS["teas-reading"] = {
           "Carbon release is described as a consequence of draining a wetland, not of water flowing through one."
         ]
       },
-      diff: 3, secs: 100
+      diff: 3, secs: 73
     },
     {
       id: "TRA-016", sub: "Key Ideas and Details", type: "mc", passage: "p-memo",
@@ -413,7 +413,7 @@ window.BANKS["teas-reading"] = {
           "Readings are required twice a day, but a confirming reading the next morning is never mentioned."
         ]
       },
-      diff: 2, secs: 70
+      diff: 2, secs: 73
     },
     {
       id: "TRA-017", sub: "Craft and Structure", type: "mc", passage: "p-memo",
@@ -429,7 +429,7 @@ window.BANKS["teas-reading"] = {
           "The costly mistake is reported without blaming any person or unit."
         ]
       },
-      diff: 1, secs: 60
+      diff: 1, secs: 73
     },
     {
       id: "TRA-018", sub: "Craft and Structure", type: "mc", passage: "p-caffeine",
@@ -445,7 +445,7 @@ window.BANKS["teas-reading"] = {
           "No problem is posed for the author to solve; tolerance is explained rather than remedied."
         ]
       },
-      diff: 2, secs: 72
+      diff: 2, secs: 73
     },
     {
       id: "TRA-019", sub: "Craft and Structure", type: "mc", passage: "p-caffeine",
@@ -466,7 +466,7 @@ window.BANKS["teas-reading"] = {
           null
         ]
       },
-      diff: 2, secs: 72
+      diff: 2, secs: 73
     },
     {
       id: "TRA-020", sub: "Integration of Knowledge and Ideas", type: "mc", passage: "p-caffeine",
@@ -487,7 +487,7 @@ window.BANKS["teas-reading"] = {
           null
         ]
       },
-      diff: 2, secs: 75
+      diff: 2, secs: 73
     },
     {
       id: "TRA-021", sub: "Integration of Knowledge and Ideas", type: "mc", passage: "p-paired",
@@ -508,7 +508,7 @@ window.BANKS["teas-reading"] = {
           "Passage 2 values the rack and Passage 1 says the reading room stays, but neither makes gathering the deciding test."
         ]
       },
-      diff: 2, secs: 80
+      diff: 2, secs: 73
     },
     {
       id: "TRA-022", sub: "Integration of Knowledge and Ideas", type: "mc", passage: "p-paired",
@@ -529,7 +529,7 @@ window.BANKS["teas-reading"] = {
           "Cost is central to Passage 1's case, and Passage 2 says nothing about the price of tablets."
         ]
       },
-      diff: 3, secs: 90
+      diff: 3, secs: 73
     },
     {
       id: "TRA-023", sub: "Integration of Knowledge and Ideas", type: "mc", passage: "p-paired",
@@ -550,7 +550,7 @@ window.BANKS["teas-reading"] = {
           null
         ]
       },
-      diff: 3, secs: 88
+      diff: 3, secs: 73
     },
     {
       id: "TRA-024", sub: "Key Ideas and Details", type: "mc", passage: "p-nap",
@@ -571,7 +571,7 @@ window.BANKS["teas-reading"] = {
           "The passage reports that hospitals schedule naps into overnight shifts, so it does not advise avoiding them."
         ]
       },
-      diff: 2, secs: 72
+      diff: 2, secs: 73
     },
     {
       id: "TRA-025", sub: "Integration of Knowledge and Ideas", type: "mc", passage: "p-nap",
@@ -592,7 +592,7 @@ window.BANKS["teas-reading"] = {
           "Caffeine is never mentioned, and the passage treats the scheduled nap as worth having."
         ]
       },
-      diff: 3, secs: 85
+      diff: 3, secs: 73
     },
     {
       id: "TRA-026", sub: "Key Ideas and Details", type: "mc", passage: "p-hatchling",
@@ -613,7 +613,7 @@ window.BANKS["teas-reading"] = {
           "The passage identifies the dune line as the darker side, which is why the ocean wins."
         ]
       },
-      diff: 2, secs: 78
+      diff: 2, secs: 73
     },
     {
       id: "TRA-027", sub: "Craft and Structure", type: "mc", passage: "p-hatchling",
@@ -634,7 +634,7 @@ window.BANKS["teas-reading"] = {
           null
         ]
       },
-      diff: 1, secs: 60
+      diff: 1, secs: 73
     },
     {
       id: "TRA-028", sub: "Key Ideas and Details", type: "mc", passage: "p-thermometer",
@@ -655,7 +655,7 @@ window.BANKS["teas-reading"] = {
           "Recording is step 8, the last action before washing hands."
         ]
       },
-      diff: 1, secs: 60
+      diff: 1, secs: 73
     },
     {
       id: "TRA-029", sub: "Key Ideas and Details", type: "mc", passage: "p-label",
@@ -671,7 +671,7 @@ window.BANKS["teas-reading"] = {
           "Four tablets is what the every-12-hours instruction produces if it is misread as every 6 hours."
         ]
       },
-      diff: 1, secs: 58
+      diff: 1, secs: 73
     },
     {
       id: "TRA-030", sub: "Integration of Knowledge and Ideas", type: "mc", passage: "p-label",
@@ -692,7 +692,7 @@ window.BANKS["teas-reading"] = {
           "Alcohol appears on a separate line under 'when using this product'; the sedative warning stands on its own."
         ]
       },
-      diff: 2, secs: 75
+      diff: 2, secs: 73
     },
     {
       id: "TRA-031", sub: "Key Ideas and Details", type: "mc", passage: "p-schedule",
@@ -708,7 +708,7 @@ window.BANKS["teas-reading"] = {
           "Trip 4 reaches the clinic at 9:45 a.m., three quarters of an hour after the appointment."
         ]
       },
-      diff: 3, secs: 88
+      diff: 3, secs: 73
     },
     {
       id: "TRA-032", sub: "Integration of Knowledge and Ideas", type: "mc", passage: "p-schedule",
@@ -729,7 +729,7 @@ window.BANKS["teas-reading"] = {
           null
         ]
       },
-      diff: 3, secs: 88
+      diff: 3, secs: 73
     },
     {
       id: "TRA-033", sub: "Key Ideas and Details", type: "mc", passage: "p-soup",
@@ -745,7 +745,7 @@ window.BANKS["teas-reading"] = {
           "1,440 mg multiplies by three servings; Brand B holds two."
         ]
       },
-      diff: 2, secs: 75
+      diff: 2, secs: 73
     },
     {
       id: "TRA-034", sub: "Integration of Knowledge and Ideas", type: "mc", passage: "p-soup",
@@ -766,7 +766,7 @@ window.BANKS["teas-reading"] = {
           "Brand C totals 280 mg per can, far under the limit, so 'every' fails on the table's own numbers."
         ]
       },
-      diff: 3, secs: 90
+      diff: 3, secs: 73
     },
     {
       id: "TRA-035", sub: "Key Ideas and Details", type: "order", passage: "p-recipe",
@@ -782,7 +782,7 @@ window.BANKS["teas-reading"] = {
       rationale: {
         correct: "The recipe builds the bars from the bottom up: the dry ingredients are combined first in step 2, the melted butter turns them into crumbs in step 3, two thirds of those crumbs are pressed into the pan in step 4, the jam goes over that pressed layer in step 5, and the reserved crumbs go on top in step 6. Reversing any pair removes the layer the next step needs."
       },
-      diff: 2, secs: 100
+      diff: 2, secs: 73
     },
     {
       id: "TRA-036", sub: "Key Ideas and Details", type: "mc", passage: "p-recipe",
@@ -803,7 +803,7 @@ window.BANKS["teas-reading"] = {
           "Carryover baking is not mentioned anywhere in the directions."
         ]
       },
-      diff: 1, secs: 58
+      diff: 1, secs: 73
     },
     {
       id: "TRA-037", sub: "Key Ideas and Details", type: "mc", passage: "p-index",
@@ -819,7 +819,7 @@ window.BANKS["teas-reading"] = {
           null
         ]
       },
-      diff: 1, secs: 55
+      diff: 1, secs: 73
     },
     {
       id: "TRA-038", sub: "Key Ideas and Details", type: "mc",
@@ -835,7 +835,7 @@ window.BANKS["teas-reading"] = {
           "PLANE adds an E rather than the T the last direction names."
         ]
       },
-      diff: 2, secs: 75
+      diff: 2, secs: 60
     },
     {
       id: "TRA-039", sub: "Craft and Structure", type: "mc",
@@ -851,7 +851,7 @@ window.BANKS["teas-reading"] = {
           "Residents identifies who attended and is purely factual."
         ]
       },
-      diff: 2, secs: 70
+      diff: 1, secs: 60
     },
     {
       id: "TRA-040", sub: "Integration of Knowledge and Ideas", type: "mc",
@@ -872,7 +872,7 @@ window.BANKS["teas-reading"] = {
           "A summary of historians' conclusions reports on secondary sources rather than recording the event."
         ]
       },
-      diff: 2, secs: 70
+      diff: 2, secs: 60
     },
     {
       id: "TRA-041", sub: "Integration of Knowledge and Ideas", type: "mc",
@@ -893,7 +893,7 @@ window.BANKS["teas-reading"] = {
           "Comment threads are unreviewed and cite no source for their claims."
         ]
       },
-      diff: 2, secs: 70
+      diff: 2, secs: 60
     },
     {
       id: "TRA-042", sub: "Integration of Knowledge and Ideas", type: "mc",
@@ -909,7 +909,7 @@ window.BANKS["teas-reading"] = {
           "A bibliography is a list of sources used or recommended on a subject."
         ]
       },
-      diff: 1, secs: 55
+      diff: 1, secs: 60
     },
     {
       id: "TRA-043", sub: "Integration of Knowledge and Ideas", type: "ms",
@@ -934,7 +934,7 @@ window.BANKS["teas-reading"] = {
           "Trading tips on a message board produces unverified personal advice rather than research."
         ]
       },
-      diff: 3, secs: 95
+      diff: 3, secs: 60
     },
     {
       id: "TRA-044", sub: "Key Ideas and Details", type: "mc",
@@ -955,7 +955,7 @@ window.BANKS["teas-reading"] = {
           "Headings stand on their own lines above the text they introduce, rather than appearing as terms inside a sentence."
         ]
       },
-      diff: 1, secs: 55
+      diff: 1, secs: 60
     },
     {
       id: "TRA-045", sub: "Craft and Structure", type: "mc",
@@ -976,7 +976,7 @@ window.BANKS["teas-reading"] = {
           "A restatement would repeat the point in new words, which 'in other words' or 'that is' would signal."
         ]
       },
-      diff: 2, secs: 72
+      diff: 1, secs: 60
     }
   ]
 };
