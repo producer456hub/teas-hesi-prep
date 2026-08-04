@@ -576,19 +576,28 @@ function renderHome(){
     const missed = allQuestions(ex).filter(q=>{const s=DB.stats[q.id];return s&&s.last==="wrong";}).length;
     const secOpts = E.sections.map(s=>`<option value="${s.key}">${esc(s.name)} — ${sectionQuestions(ex,s).length} q</option>`).join("");
     const mins = E.sections.reduce((a,s)=>a+s.mins,0);
-    const forms = formsAvailable(ex);
+    const ready = formsAvailable(ex);
+    const mech = `Real clocks and real mechanics${E.backNav?", back-navigation and flagging within each section":", forward-only with no going back"}.${E.breakAfter?" 10-minute break after Mathematics.":""}`;
     const formBtn = f=>{
+      const ok = ready.includes(f);
       const n = allQuestions(ex,f).length;
+      const secsReady = E.sections.filter(s=>sectionQuestions(ex,s,f).length>0).length;
       const done = DB.attempts.filter(a=>a.exam===ex && a.mode==="full" && (a.form||"A")===f);
       const best = done.length? Math.max(...done.map(a=>a.pct)) : null;
-      return `<button class="mode" onclick="startFull('${ex}','${f}')">
-        <b>Full simulation &mdash; Form ${f} <span class="muted" style="font-weight:400">${n} questions, ${Math.floor(mins/60)}h ${mins%60}m</span></b>
-        <span>${done.length? "Taken "+done.length+" time"+(done.length>1?"s":"")+", best "+best+"%. "
-                           : "Not taken yet. "}Real clocks and real mechanics${E.backNav?", back-navigation and flagging within each section":", forward-only with no going back"}.${E.breakAfter?" 10-minute break after Mathematics.":""}</span>
+      const role = f==="A" ? "Take this one cold, before studying &mdash; a first score you have not prepared for is the only honest map of your gaps."
+                           : "Save this one for a dress rehearsal after you have studied. It shares no question with Form A.";
+      return `<button class="mode" ${ok?`onclick="startFull('${ex}','${f}')"`:"disabled"}>
+        <b>Full simulation &mdash; Form ${f}
+          <span class="muted" style="font-weight:400">${ok ? n+" questions, "+Math.floor(mins/60)+"h "+(mins%60)+"m" : "still being written"}</span></b>
+        <span>${ok ? (done.length? "Taken "+done.length+" time"+(done.length>1?"s":"")+", best "+best+"%. " : "Not taken yet. ")+role+" "+mech
+                   : secsReady+" of "+E.sections.length+" sections written so far ("+n+" questions). "+role+" Those questions are already usable below in section practice and the drills."}</span>
       </button>`;
     };
-    host.innerHTML = forms.map(formBtn).join("") +
-      (forms.length>1 ? `<p class="muted" style="font-size:.79rem;margin:2px 0 10px">Forms A and B share no questions, so a second sitting measures what you have learned rather than what you remember.</p>` : "") + `
+    host.innerHTML = ["A","B"].map(formBtn).join("") +
+      `<div class="note i" style="font-size:.81rem;margin:4px 0 12px;padding:11px 13px">
+        <b>Why there are two forms.</b> Sitting the same practice test twice partly measures how well you remember it. Because Forms A and B share no questions,
+        clearing your target on <em>both</em> is the closest thing to proof that you actually know the material &mdash; and it is the readiness bar this app holds you to.
+      </div>` + `
       <button class="mode" onclick="startSection('${ex}')">
         <b>Practice one section</b>
         <span>Untimed, with the full rationale after every answer. The best way to learn.</span>
@@ -684,7 +693,11 @@ function resetAll(){
    ============================================================ */
 let RUN = null, TICK = null, BRK = null;
 
-function startFull(ex, form){ RUN = buildRun(ex,"full",{form:form||"A"}); beginSection(0); }
+function startFull(ex, form){
+  form = form || "A";
+  if(!bankReady(ex,form)){ toast("Form "+form+" is not finished yet.","w"); return; }
+  RUN = buildRun(ex,"full",{form}); beginSection(0);
+}
 function startSection(ex){
   const sel = document.getElementById(ex+"-secsel").value;
   RUN = buildRun(ex,"section",{section:sel}); beginSection(0);
