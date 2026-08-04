@@ -5,7 +5,7 @@
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const root = path.join(__dirname, '..');
 
-const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8').replace(/\r\n/g, '\n');
 const m = html.match(/<script>\n([\s\S]*?)\n<\/script>/);
 if (!m) { console.error('could not extract engine script'); process.exit(1); }
 const engine = m[1];

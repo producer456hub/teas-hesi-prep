@@ -290,6 +290,16 @@ input[type=text]:focus,input[type=number]:focus{outline:2px solid var(--accent);
 <script src="banks/hesi-vocab.js"></script>
 <script src="banks/hesi-grammar.js"></script>
 <script src="banks/hesi-bio-ap.js"></script>
+<script src="banks/teas-reading-b.js"></script>
+<script src="banks/teas-math-b.js"></script>
+<script src="banks/teas-science-ap-b.js"></script>
+<script src="banks/teas-science-cr-b.js"></script>
+<script src="banks/teas-english-b.js"></script>
+<script src="banks/hesi-math-b.js"></script>
+<script src="banks/hesi-reading-b.js"></script>
+<script src="banks/hesi-vocab-b.js"></script>
+<script src="banks/hesi-grammar-b.js"></script>
+<script src="banks/hesi-bio-ap-b.js"></script>
 <script>
 /* ============================================================
    EXAM DEFINITIONS — from the official blueprints
@@ -302,10 +312,10 @@ const EXAMS = {
     short: "TEAS",
     backNav: true, flagging: true, breakAfter: "math", breakSecs: 600,
     sections: [
-      { key:"reading", name:"Reading",     mins:55, banks:["teas-reading"] },
-      { key:"math",    name:"Mathematics", mins:57, banks:["teas-math"], calc:true },
-      { key:"science", name:"Science",     mins:60, banks:["teas-science-ap","teas-science-cr"] },
-      { key:"english", name:"English & Language Usage", mins:37, banks:["teas-english"] }
+      { key:"reading", name:"Reading",     mins:55, banks:["teas-reading","teas-reading-b"] },
+      { key:"math",    name:"Mathematics", mins:57, banks:["teas-math","teas-math-b"], calc:true },
+      { key:"science", name:"Science",     mins:60, banks:["teas-science-ap","teas-science-cr","teas-science-ap-b","teas-science-cr-b"] },
+      { key:"english", name:"English & Language Usage", mins:37, banks:["teas-english","teas-english-b"] }
     ],
     bands: [
       { min:90.7, label:"Exemplary" }, { min:78,   label:"Advanced" },
@@ -324,12 +334,12 @@ const EXAMS = {
     backNav: false, flagging: false, breakAfter: null,
     passMark: 75, target: 85,
     sections: [
-      { key:"math",    name:"Mathematics", mins:50, banks:["hesi-math"], calc:true },
-      { key:"reading", name:"Reading Comprehension", mins:60, banks:["hesi-reading"] },
-      { key:"vocab",   name:"Vocabulary & General Knowledge", mins:50, banks:["hesi-vocab"] },
-      { key:"grammar", name:"Grammar", mins:50, banks:["hesi-grammar"] },
-      { key:"biology", name:"Biology", mins:25, banks:["hesi-bio-ap"], subsIn:["macromolecules","cell structure","cellular respiration/photosynthesis","genetics","DNA/RNA-protein synthesis","scientific method/taxonomy"] },
-      { key:"ap",      name:"Anatomy & Physiology", mins:30, banks:["hesi-bio-ap"], subsIn:["A&P"] }
+      { key:"math",    name:"Mathematics", mins:50, banks:["hesi-math","hesi-math-b"], calc:true },
+      { key:"reading", name:"Reading Comprehension", mins:60, banks:["hesi-reading","hesi-reading-b"] },
+      { key:"vocab",   name:"Vocabulary & General Knowledge", mins:50, banks:["hesi-vocab","hesi-vocab-b"] },
+      { key:"grammar", name:"Grammar", mins:50, banks:["hesi-grammar","hesi-grammar-b"] },
+      { key:"biology", name:"Biology", mins:25, banks:["hesi-bio-ap","hesi-bio-ap-b"], subsIn:["macromolecules","cell structure","cellular respiration/photosynthesis","genetics","DNA/RNA-protein synthesis","scientific method/taxonomy"] },
+      { key:"ap",      name:"Anatomy & Physiology", mins:30, banks:["hesi-bio-ap","hesi-bio-ap-b"], subsIn:["A&P"] }
     ]
   }
 };
@@ -398,32 +408,31 @@ function show(id){
   });
   window.scrollTo(0,0);
 }
-function allQuestions(exam){
-  const out = [];
-  EXAMS[exam].sections.forEach(sec=>{
-    sec.banks.forEach(bk=>{
-      const b = BANKS[bk]; if(!b) return;
-      b.questions.forEach(q=>{
-        if(sec.subsIn && !sec.subsIn.includes(q.sub)) return;
-        out.push({ ...q, _bank:bk, _sec:sec.key });
-      });
-    });
-  });
-  return out;
-}
-function bankReady(exam){
-  return EXAMS[exam].sections.every(s=>s.banks.every(b=>BANKS[b]&&BANKS[b].questions&&BANKS[b].questions.length));
-}
-function sectionQuestions(exam, sec){
+function bankForm(bk){ const b = BANKS[bk]; return (b && b.form) || "A"; }
+/* form omitted = draw from every form (practice pools); form given = that form only
+   (full simulations, so Form B measures learning rather than memory of Form A) */
+function sectionQuestions(exam, sec, form){
   const out = [];
   sec.banks.forEach(bk=>{
     const b = BANKS[bk]; if(!b) return;
+    if(form && bankForm(bk)!==form) return;
     b.questions.forEach(q=>{
       if(sec.subsIn && !sec.subsIn.includes(q.sub)) return;
       out.push({ ...q, _bank:bk, _sec:sec.key });
     });
   });
   return out;
+}
+function allQuestions(exam, form){
+  const out = [];
+  EXAMS[exam].sections.forEach(sec=>out.push(...sectionQuestions(exam, sec, form)));
+  return out;
+}
+function bankReady(exam, form){
+  return EXAMS[exam].sections.every(s=>sectionQuestions(exam,s,form).length>0);
+}
+function formsAvailable(exam){
+  return ["A","B"].filter(f=>bankReady(exam,f));
 }
 function passageFor(q){
   const b = BANKS[q._bank];
@@ -453,7 +462,7 @@ function buildRun(exam, mode, opts){
 
   if(mode==="full"){
     sections = E.sections.map(sec=>{
-      const qs = shuffled(sectionQuestions(exam,sec), rnd).map(q=>prepQ(q,rnd));
+      const qs = shuffled(sectionQuestions(exam,sec,opts.form), rnd).map(q=>prepQ(q,rnd));
       return { key:sec.key, name:sec.name, mins:sec.mins, calc:!!sec.calc, questions:qs };
     });
   } else {
@@ -474,7 +483,7 @@ function buildRun(exam, mode, opts){
     sections = [{ key:(mode==="section"?sec.key:mode), name:(mode==="section"?sec.name:(mode==="missed"?"Missed questions":"Weakest areas")),
                   mins:null, calc:!!(mode==="section"&&sec.calc), questions:qs }];
   }
-  return { exam, mode, sections, si:0, qi:0, answers:{}, flags:{}, revealed:{},
+  return { exam, mode, form:opts.form||null, sections, si:0, qi:0, answers:{}, flags:{}, revealed:{},
            timed: mode==="full", startedAt:new Date().toISOString(), secLeft:null, done:[] };
 }
 
@@ -534,7 +543,7 @@ function commitRun(run, sc){
     DB.stats[q.id] = st;
   }));
   DB.attempts.push({
-    id: "a"+DB.attempts.length+"-"+Date.now(), exam:run.exam, mode:run.mode,
+    id: "a"+DB.attempts.length+"-"+Date.now(), exam:run.exam, mode:run.mode, form:run.form||null,
     startedAt:run.startedAt, finishedAt:new Date().toISOString(),
     pct:sc.pct, n:sc.n, right:sc.right,
     secs: sc.secs.map(s=>({key:s.key,name:s.name,n:s.n,right:s.right,pct:s.pct,blank:s.blank}))
@@ -567,11 +576,19 @@ function renderHome(){
     const missed = allQuestions(ex).filter(q=>{const s=DB.stats[q.id];return s&&s.last==="wrong";}).length;
     const secOpts = E.sections.map(s=>`<option value="${s.key}">${esc(s.name)} — ${sectionQuestions(ex,s).length} q</option>`).join("");
     const mins = E.sections.reduce((a,s)=>a+s.mins,0);
-    host.innerHTML = `
-      <button class="mode" onclick="startFull('${ex}')">
-        <b>Full simulation &mdash; ${total} questions, ${Math.floor(mins/60)}h ${mins%60}m</b>
-        <span>Real clocks and real mechanics${E.backNav?", back-navigation and flagging within each section":", forward-only with no going back"}.${E.breakAfter?" 10-minute break after Mathematics.":""}</span>
-      </button>
+    const forms = formsAvailable(ex);
+    const formBtn = f=>{
+      const n = allQuestions(ex,f).length;
+      const done = DB.attempts.filter(a=>a.exam===ex && a.mode==="full" && (a.form||"A")===f);
+      const best = done.length? Math.max(...done.map(a=>a.pct)) : null;
+      return `<button class="mode" onclick="startFull('${ex}','${f}')">
+        <b>Full simulation &mdash; Form ${f} <span class="muted" style="font-weight:400">${n} questions, ${Math.floor(mins/60)}h ${mins%60}m</span></b>
+        <span>${done.length? "Taken "+done.length+" time"+(done.length>1?"s":"")+", best "+best+"%. "
+                           : "Not taken yet. "}Real clocks and real mechanics${E.backNav?", back-navigation and flagging within each section":", forward-only with no going back"}.${E.breakAfter?" 10-minute break after Mathematics.":""}</span>
+      </button>`;
+    };
+    host.innerHTML = forms.map(formBtn).join("") +
+      (forms.length>1 ? `<p class="muted" style="font-size:.79rem;margin:2px 0 10px">Forms A and B share no questions, so a second sitting measures what you have learned rather than what you remember.</p>` : "") + `
       <button class="mode" onclick="startSection('${ex}')">
         <b>Practice one section</b>
         <span>Untimed, with the full rationale after every answer. The best way to learn.</span>
@@ -601,11 +618,13 @@ function renderReadiness(){
   let html = "";
   if(t.length){
     const last = t[t.length-1], band = teasBand(last.pct), pt = evcPoints(last.pct);
-    const two = t.slice(-2).every(a=>a.pct>=85);
-    html += `<div class="note ${two?"g":last.pct>=78?"i":"w"}"><b>TEAS &mdash; last full simulation ${last.pct}% (${band.label}).</b>
+    const cleared = [...new Set(t.filter(a=>a.pct>=85).map(a=>a.form||"A"))];
+    const ready = cleared.length>=2;
+    html += `<div class="note ${ready?"g":last.pct>=78?"i":"w"}"><b>TEAS &mdash; last full simulation ${last.pct}% (${band.label}).</b>
       At EVC that projects <b>${pt.pts} of 25 points</b>${pt.note?" &mdash; "+pt.note:""}.
-      ${two? "You have cleared 85% on two full simulations. That is the readiness bar."
-           : "Readiness means 85%+ on <em>two different</em> full simulations under real time limits."}</div>`;
+      ${ready ? "You have cleared 85% on Forms A and B. That is the readiness bar."
+        : cleared.length===1 ? "You cleared 85% on Form "+cleared[0]+". Do the same on Form "+(cleared[0]==="A"?"B":"A")+" &mdash; on a set you have not seen &mdash; and you are ready."
+        : "Readiness means 85%+ on <em>both</em> forms under real time limits, not the same form twice."}</div>`;
   }
   if(h.length){
     const last = h[h.length-1];
@@ -646,7 +665,7 @@ function renderDash(){
   const list = DB.attempts.slice(-8).reverse().map(a=>{
     const d = new Date(a.finishedAt);
     const cls = a.pct>=85?"p-good":a.pct>=75?"p-flag":"p-warn";
-    const mode = a.mode==="full"?"Full simulation":a.mode==="section"?"Section practice":a.mode==="missed"?"Missed requiz":"Weak-area drill";
+    const mode = a.mode==="full"?("Full simulation, Form "+(a.form||"A")):a.mode==="section"?"Section practice":a.mode==="missed"?"Missed requiz":"Weak-area drill";
     return `<div class="rowline"><span class="nm">${EXAMS[a.exam].short} &middot; ${mode}<span class="wn">${d.toLocaleDateString()} ${d.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"})} &middot; ${a.right}/${a.n}</span></span>
       <span></span><span class="pill ${cls}">${a.pct}%</span></div>`;
   }).join("");
@@ -665,7 +684,7 @@ function resetAll(){
    ============================================================ */
 let RUN = null, TICK = null, BRK = null;
 
-function startFull(ex){ RUN = buildRun(ex,"full"); beginSection(0); }
+function startFull(ex, form){ RUN = buildRun(ex,"full",{form:form||"A"}); beginSection(0); }
 function startSection(ex){
   const sel = document.getElementById(ex+"-secsel").value;
   RUN = buildRun(ex,"section",{section:sel}); beginSection(0);
@@ -915,7 +934,7 @@ function renderResults(sc){
   const E = EXAMS[RUN.exam];
   const full = RUN.mode==="full";
   let html = `<header class="top"><div><h1>${esc(E.name)} &mdash; results</h1>
-    <p class="sub">${full?"Full simulation":RUN.sections[0].name} &middot; ${sc.right} of ${sc.n} correct</p></div>
+    <p class="sub">${full?("Full simulation, Form "+(RUN.form||"A")):RUN.sections[0].name} &middot; ${sc.right} of ${sc.n} correct</p></div>
     <div class="bar" style="margin:0">
       <button class="primary" onclick="openReview()">Review every question</button>
       <button onclick="show('home');renderHome()">Home</button>
@@ -929,12 +948,13 @@ function renderResults(sc){
       <div class="stat"><div class="k">${pt.pts} / 25</div><div class="l">Projected EVC points</div></div>
     </div>`;
     const prior = DB.attempts.filter(a=>a.exam==="teas"&&a.mode==="full");
-    const two = prior.slice(-2);
+    const clearedForms = [...new Set(prior.filter(a=>a.pct>=85).map(a=>a.form||"A"))];
     html += `<div class="note ${sc.pct>=85?"g":sc.pct>=62?"i":"w"}">
       ${sc.pct>=85 ? "<b>At or above the 85% band.</b> That is the maximum 25 points at Evergreen Valley."
        : sc.pct>=62 ? "<b>Above EVC's 62% minimum, below the 85% maximum-points band.</b> Every band you climb is worth 5 points, and your first passing score is permanent — do not sit the real exam until you are consistently at 85%."
        : "<b>Below EVC's 62% floor.</b> A score this low would not be usable. Keep practising; nothing here is on your record."}
-      ${two.length>=2 && two.every(a=>a.pct>=85) ? " You have now cleared 85% on two full simulations — that is the readiness bar." : ""}
+      ${clearedForms.length>=2 ? " You have now cleared 85% on both forms — that is the readiness bar."
+        : clearedForms.length===1 ? " Next, clear 85% on Form "+(clearedForms[0]==="A"?"B":"A")+", which shares no questions with this one." : ""}
     </div>`;
   }
   if(RUN.exam==="hesi" && full){
@@ -1068,13 +1088,19 @@ function calcEq(){
 function __selftest(){
   const log = [];
   const fail = m => log.push("FAIL: " + m);
+  const pairs = [];
   Object.keys(EXAMS).forEach(ex=>{
-    if(!bankReady(ex)){ fail(ex+": banks not loaded"); return; }
-    const run = buildRun(ex,"full");
+    const forms = formsAvailable(ex);
+    if(!forms.length){ fail(ex+": no complete form loaded"); return; }
+    forms.forEach(f=>pairs.push([ex,f]));
+  });
+  pairs.forEach(([ex,form])=>{
+    const tag = ex+"/Form "+form;
+    const run = buildRun(ex,"full",{form});
     const nSec = run.sections.length;
-    log.push(ex+": "+nSec+" sections, "+run.sections.reduce((a,s)=>a+s.questions.length,0)+" questions");
+    log.push(tag+": "+nSec+" sections, "+run.sections.reduce((a,s)=>a+s.questions.length,0)+" questions");
     run.sections.forEach(sec=>{
-      if(!sec.questions.length) fail(ex+"/"+sec.key+": empty section");
+      if(!sec.questions.length) fail(tag+"/"+sec.key+": empty section");
       const ids = new Set();
       sec.questions.forEach(q=>{
         if(ids.has(q.id)) fail("duplicate id in run: "+q.id); ids.add(q.id);
@@ -1094,9 +1120,9 @@ function __selftest(){
         q.type==="hotspot" ? q.answer : null;
     }));
     let sc = scoreRun(run);
-    if(sc.pct!==100) fail(ex+": all-correct run scored "+sc.pct+"% (expected 100). "+
+    if(sc.pct!==100) fail(tag+": all-correct run scored "+sc.pct+"% (expected 100). "+
       run.sections.flatMap(s=>s.questions).filter(q=>!isCorrect(q,run.answers[q.id])).map(q=>q.id+"/"+q.type).slice(0,8).join(", "));
-    else log.push(ex+": all-correct = 100% ok");
+    else log.push(tag+": all-correct = 100% ok");
     /* answer everything wrong */
     run.answers = {};
     run.sections.forEach(sec=>sec.questions.forEach(q=>{
@@ -1108,14 +1134,27 @@ function __selftest(){
         q.type==="hotspot" ? "__none" : null;
     }));
     sc = scoreRun(run);
-    if(sc.right!==0) fail(ex+": all-wrong run still scored "+sc.right+" correct");
-    else log.push(ex+": all-wrong = 0 correct ok");
+    if(sc.right!==0) fail(tag+": all-wrong run still scored "+sc.right+" correct");
+    else log.push(tag+": all-wrong = 0 correct ok");
     /* blanks count as wrong and are reported */
     run.answers = {};
     sc = scoreRun(run);
     const blanks = sc.secs.reduce((a,s)=>a+s.blank,0);
-    if(blanks!==sc.n) fail(ex+": blank count "+blanks+" != "+sc.n);
-    else log.push(ex+": blanks counted as wrong ok");
+    if(blanks!==sc.n) fail(tag+": blank count "+blanks+" != "+sc.n);
+    else log.push(tag+": blanks counted as wrong ok");
+  });
+  /* Forms must share no question ids and no stems */
+  Object.keys(EXAMS).forEach(ex=>{
+    if(formsAvailable(ex).length<2) return;
+    const A = allQuestions(ex,"A"), B = allQuestions(ex,"B");
+    const ids = new Set(A.map(q=>q.id));
+    const dupId = B.filter(q=>ids.has(q.id)).map(q=>q.id);
+    if(dupId.length) fail(ex+": Form B reuses Form A ids: "+dupId.slice(0,5).join(","));
+    const norm = t=>t.toLowerCase().replace(/\W+/g," ").trim();
+    const stems = new Set(A.map(q=>norm(q.q)));
+    const dupQ = B.filter(q=>stems.has(norm(q.q)));
+    if(dupQ.length>3) fail(ex+": Form B repeats "+dupQ.length+" Form A stems, e.g. "+dupQ.slice(0,3).map(q=>q.id).join(","));
+    else log.push(ex+": forms non-overlapping ("+A.length+" vs "+B.length+" questions, "+dupQ.length+" shared generic stems)");
   });
   const bad = log.filter(l=>l.startsWith("FAIL"));
   log.push(bad.length ? ("=== "+bad.length+" FAILURE(S) ===") : "=== ALL SELF-TESTS PASS ===");

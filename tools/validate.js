@@ -15,6 +15,16 @@ const EXPECT = {
   "hesi-grammar":    { prefix:"HGA", exam:"hesi", total:55, subs:{"subject-verb agreement":9,"pronoun case/agreement":9,"punctuation":9,"commonly confused words":12,"sentence structure/modifiers":9,"verb tense/form":7}, alt:{} },
   "hesi-bio-ap":     { prefix:"HBA", exam:"hesi", total:60, subs:{"macromolecules":6,"cell structure":6,"cellular respiration/photosynthesis":5,"genetics":6,"DNA/RNA-protein synthesis":4,"scientific method/taxonomy":3,"A&P":30}, alt:{} },
 };
+/* Form B mirrors every Form A blueprint exactly, under its own ID prefix. */
+const FORMB_PREFIX = {
+  "teas-reading":"TRB", "teas-math":"TMB", "teas-science-ap":"TSB", "teas-science-cr":"TCB",
+  "teas-english":"TEB", "hesi-math":"HMB", "hesi-reading":"HRB", "hesi-vocab":"HVB",
+  "hesi-grammar":"HGB", "hesi-bio-ap":"HBB"
+};
+Object.keys(FORMB_PREFIX).forEach(base => {
+  EXPECT[base + "-b"] = Object.assign({}, EXPECT[base], { prefix: FORMB_PREFIX[base], form: "B" });
+});
+
 const TYPES = ["mc","ms","fill","order","hotspot"];
 const BANNED = [/\ball of the above\b/i, /\bnone of the above\b/i, /\bboth a and b\b/i];
 
@@ -42,6 +52,8 @@ function validateFile(file, globalIds, globalStems) {
   if (keys.length !== 1 || keys[0] !== base) { fail(base, `must define exactly window.BANKS["${base}"], found [${keys}]`); return; }
   const bank = banks[base];
   if (bank.exam !== exp.exam) fail(base, `exam should be "${exp.exam}"`);
+  const wantForm = exp.form || "A";
+  if ((bank.form || "A") !== wantForm) fail(base, `form should be "${wantForm}"`);
   const qs = bank.questions || [];
   if (qs.length !== exp.total) fail(base, `question count ${qs.length}, expected ${exp.total}`);
 

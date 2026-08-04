@@ -23,7 +23,7 @@ window.BANKS["teas-math"] = {
         ]
       },
       diff: 1,
-      secs: 60
+      secs: 90
     },
 
     {
@@ -161,7 +161,7 @@ window.BANKS["teas-math"] = {
           "This is the correct comparison listed in the wrong direction - greatest to least."
         ]
       },
-      diff: 2,
+      diff: 3,
       secs: 90
     },
 
@@ -210,7 +210,7 @@ window.BANKS["teas-math"] = {
       sub: "Numbers and Algebra",
       type: "fill",
       q: "A patient's weight decreased from 180 lb to 153 lb. What was the percent decrease in weight? Record your answer as a number without the percent sign.",
-      answer: { accept: ["15", "15.0", "15%"] },
+      answer: { accept: ["15", "15.0"] },
       rationale: {
         correct: "Percent change = (change ÷ original) × 100. The change is 180 - 153 = 27, so 27 / 180 = 0.15, which is 15%. The classic errors are dividing by the NEW weight (27 / 153 = 17.6%) instead of the original, and forgetting to multiply by 100 (0.15)."
       },
@@ -299,8 +299,8 @@ window.BANKS["teas-math"] = {
           "$17.00 ÷ 200 = $0.085 per tablet; the biggest package is not automatically the cheapest per unit."
         ]
       },
-      diff: 2,
-      secs: 95
+      diff: 3,
+      secs: 90
     },
 
     {
@@ -352,8 +352,8 @@ window.BANKS["teas-math"] = {
           "x > 4 solves 4x > 16, ignoring the negative sign on the coefficient entirely."
         ]
       },
-      diff: 2,
-      secs: 85
+      diff: 3,
+      secs: 90
     },
 
     {
@@ -392,8 +392,8 @@ window.BANKS["teas-math"] = {
           "$1,129.50 is the total of the expenses; the question asks what is LEFT after paying them."
         ]
       },
-      diff: 2,
-      secs: 110
+      diff: 3,
+      secs: 90
     },
 
     {
@@ -422,7 +422,7 @@ window.BANKS["teas-math"] = {
       id: "TMA-022",
       sub: "Measurement and Data",
       type: "hotspot",
-      q: "The bar graph shows the number of patients seen at a clinic over four days. Select the day on which the patient count decreased from the previous day.",
+      q: "The bar graph shows the number of patients seen at a clinic over four days. Click the bar representing the day on which the patient count decreased from the previous day.",
       svg: "<svg viewBox='0 0 400 260' xmlns='http://www.w3.org/2000/svg'><rect class='hs-bg' x='0' y='0' width='400' height='260'/><text class='hs-label' x='200' y='18' text-anchor='middle' font-size='13'>Patients Seen per Day</text><rect class='hs-part' x='53' y='40' width='2' height='182'/><rect class='hs-part' x='53' y='220' width='332' height='2'/><rect class='hs-part' x='48' y='183' width='5' height='2'/><rect class='hs-part' x='48' y='147' width='5' height='2'/><rect class='hs-part' x='48' y='111' width='5' height='2'/><rect class='hs-part' x='48' y='75' width='5' height='2'/><rect class='hs-part' x='48' y='39' width='5' height='2'/><text class='hs-label' x='45' y='224' text-anchor='end' font-size='10'>0</text><text class='hs-label' x='45' y='188' text-anchor='end' font-size='10'>10</text><text class='hs-label' x='45' y='152' text-anchor='end' font-size='10'>20</text><text class='hs-label' x='45' y='116' text-anchor='end' font-size='10'>30</text><text class='hs-label' x='45' y='80' text-anchor='end' font-size='10'>40</text><text class='hs-label' x='45' y='44' text-anchor='end' font-size='10'>50</text><rect class='hs-part' x='75' y='112' width='55' height='108'/><rect class='hs-part' x='150' y='58' width='55' height='162'/><rect class='hs-part' x='225' y='130' width='55' height='90'/><rect class='hs-part' x='300' y='76' width='55' height='144'/><text class='hs-label' x='102' y='106' text-anchor='middle' font-size='11'>30</text><text class='hs-label' x='177' y='52' text-anchor='middle' font-size='11'>45</text><text class='hs-label' x='252' y='124' text-anchor='middle' font-size='11'>25</text><text class='hs-label' x='327' y='70' text-anchor='middle' font-size='11'>40</text><text class='hs-label' x='102' y='238' text-anchor='middle' font-size='11'>Mon</text><text class='hs-label' x='177' y='238' text-anchor='middle' font-size='11'>Tue</text><text class='hs-label' x='252' y='238' text-anchor='middle' font-size='11'>Wed</text><text class='hs-label' x='327' y='238' text-anchor='middle' font-size='11'>Thu</text></svg>",
       regions: [
         { id: "mon", label: "Monday", shape: "rect", x: 70, y: 30, w: 65, h: 196 },
@@ -474,28 +474,28 @@ window.BANKS["teas-math"] = {
           "$1,560 is the remaining 65% of the budget - everything EXCEPT gloves."
         ]
       },
-      diff: 2,
-      secs: 80
+      diff: 1,
+      secs: 90
     },
 
     {
       id: "TMA-025",
       sub: "Measurement and Data",
       type: "mc",
-      q: "A nurse wants to display how a patient's body temperature changed over a 24-hour period. Which type of graph is most appropriate?",
-      choices: ["Line graph", "Circle graph", "Bar graph", "Histogram"],
+      q: "What is the slope of the line that passes through the points (3, 4) and (7, 16) on the coordinate plane?",
+      choices: ["3", "4", "12", "48"],
       answer: 0,
       rationale: {
-        correct: "A line graph connects successive measurements over time, so a continuous 24-hour trend in one variable is easiest to follow as a line.",
+        correct: "Slope = rise over run = (16 - 4) / (7 - 3) = 12 / 4 = 3.",
         wrong: [
           null,
-          "A circle graph shows parts of a whole at a single moment, not change across time.",
-          "A bar graph compares separate categories; it does not emphasize a continuous trend through time.",
-          "A histogram shows how often values fall into intervals, not how one value changes hour by hour."
+          "4 is the run (7 - 3) alone - the change in x, not the slope.",
+          "12 is the rise (16 - 4) alone; it must still be divided by the run.",
+          "48 multiplies the rise by the run instead of dividing rise by run."
         ]
       },
-      diff: 1,
-      secs: 60
+      diff: 2,
+      secs: 90
     },
 
     {
@@ -575,25 +575,20 @@ window.BANKS["teas-math"] = {
       id: "TMA-030",
       sub: "Measurement and Data",
       type: "mc",
-      q: "A researcher finds that as the number of hours nurses work per week increases, the number of documentation errors also increases. Which of the following describes this relationship?",
-      choices: [
-        "A positive correlation",
-        "A negative correlation",
-        "No correlation",
-        "A proven causal relationship"
-      ],
+      q: "A home-health nurse made the following numbers of visits on seven days: 5, 9, 4, 9, 7, 12, 9. What is the range of the data set?",
+      choices: ["8", "9", "12", "16"],
       answer: 0,
       rationale: {
-        correct: "Both variables move in the same direction - hours up, errors up - which is the definition of a positive correlation.",
+        correct: "Range measures spread: maximum minus minimum, or 12 - 4 = 8.",
         wrong: [
           null,
-          "A negative correlation would mean errors DECREASE as hours increase - the opposite of what was observed.",
-          "'No correlation' would mean no consistent pattern; here errors rise consistently with hours.",
-          "An observed association alone cannot prove that the hours CAUSE the errors; correlation is not causation."
+          "9 is the mode (and also the median) of the data set, not the range.",
+          "12 is the maximum value alone; the minimum must be subtracted from it.",
+          "16 adds the maximum and minimum instead of subtracting them."
         ]
       },
       diff: 1,
-      secs: 60
+      secs: 90
     },
 
     {
@@ -660,20 +655,20 @@ window.BANKS["teas-math"] = {
       id: "TMA-034",
       sub: "Measurement and Data",
       type: "mc",
-      q: "A patient drank 0.75 liter of water. How many milliliters of water did the patient drink?",
-      choices: ["7,500", "750", "75", "7.5"],
+      q: "A newborn measures 20 inches in length. What is the newborn's length in centimeters? Use 1 in = 2.54 cm.",
+      choices: ["508", "50.8", "22.54", "7.9"],
       answer: 1,
       rationale: {
-        correct: "Milli- means one thousandth, so 1 L = 1,000 mL: 0.75 × 1,000 = 750 mL.",
+        correct: "Multiply by the conversion factor: 20 × 2.54 = 50.8 cm. Centimeters are smaller than inches, so the number must come out larger.",
         wrong: [
-          "7,500 shifts the decimal four places (multiplying by 10,000) instead of three.",
+          "508 misplaces the decimal point one position when multiplying.",
           null,
-          "75 shifts the decimal only two places (multiplying by 100).",
-          "7.5 shifts the decimal only one place (multiplying by 10)."
+          "22.54 adds the conversion factor to 20 instead of multiplying by it.",
+          "7.9 divides by 2.54 - the conversion factor upside down - making the length shrink when expressed in a smaller unit."
         ]
       },
       diff: 1,
-      secs: 60
+      secs: 90
     },
 
     {
@@ -693,20 +688,20 @@ window.BANKS["teas-math"] = {
       id: "TMA-036",
       sub: "Measurement and Data",
       type: "mc",
-      q: "A parent gives a child 2 tablespoons of liquid medicine. How many milliliters of medicine did the child receive? Use 1 tbsp = 15 mL.",
-      choices: ["6", "7.5", "10", "30"],
+      q: "A patient's intake log shows 2 1/2 cups of juice consumed during a shift. How many fluid ounces is this? Use 1 cup = 8 fl oz.",
+      choices: ["5", "10.5", "16", "20"],
       answer: 3,
       rationale: {
-        correct: "Each tablespoon is 15 mL, so 2 tbsp = 2 × 15 = 30 mL.",
+        correct: "Multiply cups by ounces per cup: 2.5 × 8 = 20 fluid ounces.",
         wrong: [
-          "6 converts to teaspoons (2 tbsp = 6 tsp) instead of milliliters.",
-          "7.5 divides 15 by 2 instead of multiplying by 2.",
-          "10 uses the teaspoon equivalent (1 tsp = 5 mL) in place of the tablespoon equivalent.",
+          "5 multiplies by 2 - the cups-per-pint factor - instead of by the 8 fluid ounces per cup.",
+          "10.5 adds the conversion factor to 2.5 instead of multiplying.",
+          "16 converts only the 2 whole cups and drops the half cup.",
           null
         ]
       },
-      diff: 2,
-      secs: 85
+      diff: 1,
+      secs: 90
     },
 
     {
